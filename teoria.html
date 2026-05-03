@@ -45,9 +45,7 @@
             transition: transform 0.3s ease;
         }
 
-        .tarjeta-tema:hover {
-            transform: translateY(-5px);
-        }
+        .tarjeta-tema:hover { transform: translateY(-5px); }
 
         h2 { color: #00d2ff; margin-top: 0; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         .algebra h2 { color: #ff9f43; }
@@ -55,7 +53,6 @@
 
         p { line-height: 1.6; opacity: 0.9; font-size: 1.1rem; }
 
-        /* --- EJEMPLOS Y CLASIFICACIÓN --- */
         .ejemplo {
             background-color: rgba(0, 0, 0, 0.25);
             padding: 15px;
@@ -81,20 +78,21 @@
             font-size: 1rem;
         }
 
-            .botones-juego button {
-        padding: 10px;
-        border-radius: 8px;
-        border: none;
-        background-color: #57606f;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-    .botones-juego button:hover {
-        background-color: #00d2ff;
-        color: black;
-    }
+        /* --- ESTILOS DEL JUEGO --- */
+        .botones-juego button {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background-color: #57606f;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .botones-juego button:hover {
+            background-color: #00d2ff;
+            color: black;
+        }
 
         /* --- NAVEGACIÓN --- */
         .btn-inicio {
@@ -115,7 +113,6 @@
 
         .btn-inicio:hover { background: white; color: #764ba2; transform: scale(1.05); }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
             .btn-inicio { position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 20px; }
@@ -133,7 +130,6 @@
             <p>Domina los conceptos desde lo básico hasta el álgebra.</p>
         </header>
 
-        <!-- Aritmética Básica -->
         <section class="tarjeta-tema">
             <h2>➕ Operaciones Básicas</h2>
             <p>Los pilares de las matemáticas:</p>
@@ -145,103 +141,101 @@
             </ul>
         </section>
 
-        <!-- Álgebra -->
         <section class="tarjeta-tema algebra">
             <h2>🧬 Introducción al Álgebra</h2>
-            <p>Usamos letras (<b>variables</b>) para encontrar valores desconocidos. La clave es mantener la igualdad como una balanza.</p>
+            <p>Usamos letras (<b>variables</b>) para encontrar valores desconocidos.</p>
             <div class="ejemplo">
                 <strong>Ecuación simple:</strong><br>
-                x + 10 = 25 <br>
-                x = 25 - 10 <br>
-                <strong>x = 15</strong>
+                x + 10 = 25 -> <strong>x = 15</strong>
             </div>
         </section>
 
-        <!-- Polinomios -->
         <section class="tarjeta-tema polinomios">
             <h2>🏷️ Clasificación de Expresiones</h2>
-            <p>Según el número de términos, las expresiones tienen nombres especiales:</p>
-            
             <div class="clasificacion">
-                <p><strong>1. Monomio:</strong> 1 solo término. <br><small>Ej: 5y³</small></p>
-                <p><strong>2. Binomio:</strong> 2 términos (separados por + o -). <br><small>Ej: x² + 9</small></p>
+                <p><strong>1. Monomio:</strong> 1 término. <br><small>Ej: 5y³</small></p>
+                <p><strong>2. Binomio:</strong> 2 términos. <br><small>Ej: x² + 9</small></p>
                 <p><strong>3. Trinomio:</strong> 3 términos. <br><small>Ej: a² + 2ab + b²</small></p>
-                <p><strong>4. Polinomio:</strong> 4 términos o más. <br><small>Ej: x³ + x² + x + 1</small></p>
-            </div>
-
-            <div class="ejemplo">
-                <strong>Nota:</strong> Un término es un conjunto de números y letras que no están separados por sumas o restas.
+                <p><strong>4. Polinomio:</strong> 4 o más términos.</p>
             </div>
         </section>
 
-                <!-- Sección del Desafío -->
+        <!-- SECCIÓN DEL JUEGO -->
         <section class="tarjeta-tema" style="background-color: #2f3542; border: 2px solid #00d2ff;">
             <h2>🎮 Desafío: ¿Qué expresión es?</h2>
-            <p>Pon a prueba lo que aprendiste. Clasifica la siguiente expresión:</p>
+            <p>Clasifica la siguiente expresión para ganar puntos:</p>
             
             <div id="pantalla-juego" style="text-align: center; padding: 20px;">
                 <div id="pregunta-expresion" style="font-size: 2rem; font-weight: bold; margin-bottom: 20px; color: #ff9f43;">
-                    3x + 5
+                    <!-- Aquí se cargará la pregunta -->
                 </div>
                 
                 <div class="botones-juego" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <button onclick="verificarRespuesta('Monomio')">Monomio</button>
                     <button onclick="verificarRespuesta('Binomio')">Binomio</button>
                     <button onclick="verificarRespuesta('Trinomio')">Trinomio</button>
-                    <button onclick="siguientePregunta()" style="background-color: #2ed573;">Siguiente ➡️</button>
+                    <button id="btn-siguiente" onclick="siguientePregunta()" style="background-color: #2ed573; display: none; color: white;">Siguiente ➡️</button>
                 </div>
                 
                 <p id="feedback" style="margin-top: 15px; font-weight: bold;"></p>
                 <p>Puntaje: <span id="puntos">0</span></p>
             </div>
         </section>
-
     </div>
 
-<script>
-    // 1. Lista de preguntas bien organizada
-    const preguntas = [
-        { exp: "3x + 5", correct: "Binomio" },
-        { exp: "5y²", correct: "Monomio" },
-        { exp: "a² + 2ab + b²", correct: "Trinomio" },
-        { exp: "8", correct: "Monomio" },
-        { exp: "3x - 4y", correct: "Binomio" },
-        { exp: "x² + 5x + 6", correct: "Trinomio" }
-    ];
+    <script>
+        const preguntas = [
+            { exp: "3x + 5", correct: "Binomio" },
+            { exp: "5y²", correct: "Monomio" },
+            { exp: "a² + 2ab + b²", correct: "Trinomio" },
+            { exp: "8", correct: "Monomio" },
+            { exp: "3x - 4y", correct: "Binomio" },
+            { exp: "x² + 5x + 6", correct: "Trinomio" }
+        ];
 
-    let indiceActual = 0;
-    let puntaje = 0;
+        let indiceActual = 0;
+        let puntaje = 0;
 
-    // 2. Esta función CARGA la pregunta apenas abre la página
-    function cargarPregunta() {
-        document.getElementById('pregunta-expresion').innerText = preguntas[indiceActual].exp;
-        document.getElementById('feedback').innerText = "";
-    }
-
-    function verificarRespuesta(respuestaUsuario) {
-        const feedback = document.getElementById('feedback');
-        const respuestaCorrecta = preguntas[indiceActual].correct;
-
-        if (respuestaUsuario === respuestaCorrecta) {
-            feedback.innerText = "✅ ¡Correcto! Es un " + respuestaCorrecta;
-            feedback.style.color = "#2ed573";
-            puntaje += 10;
-        } else {
-            feedback.innerText = "❌ Incorrecto, era un " + respuestaCorrecta;
-            feedback.style.color = "#ff4757";
+        function cargarPregunta() {
+            document.getElementById('btn-siguiente').style.display = "none";
+            document.getElementById('feedback').innerText = "";
+            document.getElementById('pregunta-expresion').innerText = preguntas[indiceActual].exp;
         }
-        document.getElementById('puntos').innerText = puntaje;
-    }
 
-    function siguientePregunta() {
-        // Pasa a la siguiente o vuelve al inicio si se acaban
-        indiceActual = (indiceActual + 1) % preguntas.length;
-        cargarPregunta();
-    }
+        function verificarRespuesta(respuestaUsuario) {
+            const feedback = document.getElementById('feedback');
+            const respuestaCorrecta = preguntas[indiceActual].correct;
+            const btnSiguiente = document.getElementById('btn-siguiente');
 
-    // 3. ¡IMPORTANTE! Esto hace que el juego empiece bien al cargar la web
-    window.onload = cargarPregunta;
-</script>
+            if (btnSiguiente.style.display === "block") return;
 
+            if (respuestaUsuario === respuestaCorrecta) {
+                feedback.innerText = "✅ ¡Correcto! Es un " + respuestaCorrecta;
+                feedback.style.color = "#2ed573";
+                puntaje += 10;
+            } else {
+                feedback.innerText = "❌ Incorrecto, era un " + respuestaCorrecta;
+                feedback.style.color = "#ff4757";
+            }
+            
+            document.getElementById('puntos').innerText = puntaje;
+            btnSiguiente.style.display = "block";
+        }
+
+        function siguientePregunta() {
+            indiceActual++;
+            if (indiceActual < preguntas.length) {
+                cargarPregunta();
+            } else {
+                document.getElementById('pantalla-juego').innerHTML = `
+                    <h2 style="color: #00d2ff;">¡Juego Terminado! 🏆</h2>
+                    <p style="font-size: 1.5rem;">Puntaje final: <b>${puntaje}</b></p>
+                    <button onclick="location.reload()" style="padding: 10px 20px; background: #ff9f43; border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: bold;">Reiniciar</button>
+                `;
+            }
+        }
+
+        window.onload = cargarPregunta;
+    </script>
 </body>
 </html>
