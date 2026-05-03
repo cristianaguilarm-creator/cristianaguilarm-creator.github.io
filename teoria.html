@@ -45,11 +45,10 @@
             transition: transform 0.3s ease;
         }
 
-        .tarjeta-tema:hover { transform: translateY(-5px); }
-
         h2 { color: #00d2ff; margin-top: 0; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         .algebra h2 { color: #ff9f43; }
         .polinomios h2 { color: #ff4757; }
+        .ejercicios-seccion h2 { color: #2ed573; }
 
         p { line-height: 1.6; opacity: 0.9; font-size: 1.1rem; }
 
@@ -61,21 +60,32 @@
             margin-top: 15px;
             border-radius: 5px;
         }
-        .algebra .ejemplo { border-left-color: #ff9f43; }
-        .polinomios .ejemplo { border-left-color: #ff4757; }
 
-        .clasificacion {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 15px;
+        /* --- SECCIÓN DE EJERCICIOS --- */
+        .ejercicio-caja {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: left;
         }
 
-        .clasificacion p {
-            margin: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 8px;
-            font-size: 1rem;
+        .ejercicio-caja input {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .ejercicio-caja button {
+            padding: 8px 15px;
+            background-color: #2ed573;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         /* --- ESTILOS DEL JUEGO --- */
@@ -87,11 +97,6 @@
             color: white;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.2s;
-        }
-        .botones-juego button:hover {
-            background-color: #00d2ff;
-            color: black;
         }
 
         /* --- NAVEGACIÓN --- */
@@ -105,85 +110,81 @@
             padding: 12px 20px;
             border-radius: 12px;
             font-weight: bold;
-            backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.3);
-            transition: 0.3s;
             z-index: 1000;
-        }
-
-        .btn-inicio:hover { background: white; color: #764ba2; transform: scale(1.05); }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .btn-inicio { position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 20px; }
-            header { margin-top: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="btn-inicio">🏠 Volver al Inicio</a>
+    <a href="index.html" class="btn-inicio">🏠 Inicio</a>
 
     <div class="contenedor-teoria">
         <header>
             <h1>📚 Biblioteca de Teoría</h1>
-            <p>Domina los conceptos desde lo básico hasta el álgebra.</p>
+            <p>Aprende y practica antes del desafío final.</p>
         </header>
 
-        <section class="tarjeta-tema">
-            <h2>➕ Operaciones Básicas</h2>
-            <p>Los pilares de las matemáticas:</p>
+        <!-- Teoría de Polinomios -->
+        <section class="tarjeta-tema polinomios">
+            <h2>🏷️ Polinomios</h2>
+            <p>Un polinomio es una expresión con varios términos:</p>
             <ul>
-                <li><b>Suma:</b> Agrupar cantidades (Sumandos).</li>
-                <li><b>Resta:</b> Quitar una cantidad de otra (Minuendo y Sustraendo).</li>
-                <li><b>Multiplicación:</b> Sumar un número muchas veces (Factores).</li>
-                <li><b>División:</b> Repartir en partes iguales (Dividendo y Divisor).</li>
+                <li><b>Monomio:</b> 1 término (Ej: 3x)</li>
+                <li><b>Binomio:</b> 2 términos (Ej: x + 2)</li>
+                <li><b>Trinomio:</b> 3 términos (Ej: x² + x + 1)</li>
             </ul>
         </section>
 
-        <section class="tarjeta-tema algebra">
-            <h2>🧬 Introducción al Álgebra</h2>
-            <p>Usamos letras (<b>variables</b>) para encontrar valores desconocidos.</p>
-            <div class="ejemplo">
-                <strong>Ecuación simple:</strong><br>
-                x + 10 = 25 -> <strong>x = 15</strong>
-            </div>
-        </section>
-
-        <section class="tarjeta-tema polinomios">
-            <h2>🏷️ Clasificación de Expresiones</h2>
-            <div class="clasificacion">
-                <p><strong>1. Monomio:</strong> 1 término. <br><small>Ej: 5y³</small></p>
-                <p><strong>2. Binomio:</strong> 2 términos. <br><small>Ej: x² + 9</small></p>
-                <p><strong>3. Trinomio:</strong> 3 términos. <br><small>Ej: a² + 2ab + b²</small></p>
-                <p><strong>4. Polinomio:</strong> 4 o más términos.</p>
-            </div>
-        </section>
-
-        <!-- SECCIÓN DEL JUEGO -->
-        <section class="tarjeta-tema" style="background-color: #2f3542; border: 2px solid #00d2ff;">
-            <h2>🎮 Desafío: ¿Qué expresión es?</h2>
-            <p>Clasifica la siguiente expresión para ganar puntos:</p>
+        <!-- Ejercicios Prácticos -->
+        <section class="tarjeta-tema ejercicios-seccion">
+            <h2>📝 Práctica: Polinomios</h2>
+            <p>Escribe la respuesta simplificada (sin espacios):</p>
             
-            <div id="pantalla-juego" style="text-align: center; padding: 20px;">
-                <div id="pregunta-expresion" style="font-size: 2rem; font-weight: bold; margin-bottom: 20px; color: #ff9f43;">
-                    <!-- Aquí se cargará la pregunta -->
-                </div>
+            <div class="ejercicio-caja">
+                <p>1. Simplifica: <b>2x + 4x + 3</b></p>
+                <input type="text" id="ans1" placeholder="Ej: 6x+3">
+                <button onclick="chequearEjer('ans1', '6x+3')">Revisar</button>
+                <span id="f1"></span>
+            </div>
+
+            <div class="ejercicio-caja">
+                <p>2. Simplifica: <b>5a + 2b - 2a</b></p>
+                <input type="text" id="ans2" placeholder="Ej: 3a+2b">
+                <button onclick="chequearEjer('ans2', '3a+2b')">Revisar</button>
+                <span id="f2"></span>
+            </div>
+        </section>
+
+        <!-- Juego Desafío -->
+        <section class="tarjeta-tema" style="background-color: #2f3542; border: 2px solid #00d2ff;">
+            <h2>🎮 Desafío Final</h2>
+            <div id="pantalla-juego" style="text-align: center;">
+                <div id="pregunta-expresion" style="font-size: 2rem; font-weight: bold; margin-bottom: 20px; color: #ff9f43;"></div>
                 
                 <div class="botones-juego" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button onclick="verificarRespuesta('Monomio')">Monomio</button>
-                    <button onclick="verificarRespuesta('Binomio')">Binomio</button>
-                    <button onclick="verificarRespuesta('Trinomio')">Trinomio</button>
-                    <button id="btn-siguiente" onclick="siguientePregunta()" style="background-color: #2ed573; display: none; color: white;">Siguiente ➡️</button>
+                    <button onclick="verificarRes('Monomio')">Monomio</button>
+                    <button onclick="verificarRes('Binomio')">Binomio</button>
+                    <button onclick="verificarRes('Trinomio')">Trinomio</button>
+                    <button id="btn-sig" onclick="sigPreg()" style="background-color: #2ed573; display: none; color: white;">Siguiente ➡️</button>
                 </div>
                 
                 <p id="feedback" style="margin-top: 15px; font-weight: bold;"></p>
-                <p>Puntaje: <span id="puntos">0</span></p>
+                <p>Puntaje: <span id="puntos">0</span> de 60</p>
             </div>
         </section>
     </div>
 
     <script>
+        // Lógica de Ejercicios
+        function chequearEjer(id, correcta) {
+            const user = document.getElementById(id).value.replace(/\s+/g, '').toLowerCase();
+            const f = document.getElementById('f' + id.replace('ans', ''));
+            if(user === correcta) { f.innerText = " ✅"; f.style.color = "#2ed573"; }
+            else { f.innerText = " ❌"; f.style.color = "#ff4757"; }
+        }
+
+        // Lógica del Juego
         const preguntas = [
             { exp: "3x + 5", correct: "Binomio" },
             { exp: "5y²", correct: "Monomio" },
@@ -193,51 +194,42 @@
             { exp: "x² + 5x + 6", correct: "Trinomio" }
         ];
 
-        let indiceActual = 0;
-        let puntaje = 0;
+        let indice = 0;
+        let puntos = 0;
 
-        function cargarPregunta() {
-            document.getElementById('btn-siguiente').style.display = "none";
+        function cargarPreg() {
+            document.getElementById('btn-sig').style.display = "none";
             document.getElementById('feedback').innerText = "";
-            document.getElementById('pregunta-expresion').innerText = preguntas[indiceActual].exp;
+            document.getElementById('pregunta-expresion').innerText = preguntas[indice].exp;
         }
 
-        function verificarRespuesta(respuestaUsuario) {
-            const feedback = document.getElementById('feedback');
-            const respuestaCorrecta = preguntas[indiceActual].correct;
-            const btnSiguiente = document.getElementById('btn-siguiente');
-
-            if (btnSiguiente.style.display === "block") return;
-
-            if (respuestaUsuario === respuestaCorrecta) {
-                feedback.innerText = "✅ ¡Correcto! Es un " + respuestaCorrecta;
-                feedback.style.color = "#2ed573";
-                puntaje += 10;
-            } else {
-                feedback.innerText = "❌ Incorrecto, era un " + respuestaCorrecta;
-                feedback.style.color = "#ff4757";
-            }
+        function verificarRes(resUser) {
+            if (document.getElementById('btn-sig').style.display === "block") return;
+            const correcta = preguntas[indice].correct;
+            const f = document.getElementById('feedback');
             
-            document.getElementById('puntos').innerText = puntaje;
-            btnSiguiente.style.display = "block";
+            if (resUser === correcta) {
+                f.innerText = "✅ ¡Correcto!"; f.style.color = "#2ed573"; puntos += 10;
+            } else {
+                f.innerText = "❌ Era un " + correcta; f.style.color = "#ff4757";
+            }
+            document.getElementById('puntos').innerText = puntos;
+            document.getElementById('btn-sig').style.display = "block";
         }
 
-                function siguientePregunta() {
-            indiceActual++;
-            if (indiceActual < preguntas.length) {
-                cargarPregunta();
-            } else {
-                // Mensaje final actualizado con el total de 60
+        function sigPreg() {
+            indice++;
+            if (indice < preguntas.length) { cargarPreg(); }
+            else {
                 document.getElementById('pantalla-juego').innerHTML = `
-                    <h2 style="color: #00d2ff;">¡Juego Terminado! 🏆</h2>
-                    <p style="font-size: 1.5rem;">Tu puntaje es: <b>${puntaje}</b> de un total de <b>60</b></p>
-                    <p style="opacity: 0.8;">${puntaje === 60 ? "¡Eres un experto en álgebra! 🌟" : "¡Buen intento! Sigue practicando."}</p>
-                    <button onclick="location.reload()" style="padding: 10px 20px; background: #ff9f43; border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; margin-top: 15px;">Reiniciar</button>
+                    <h2>🏆 ¡Fin del Juego!</h2>
+                    <p style="font-size: 1.5rem;">Puntaje: <b>${puntos}</b> de <b>60</b></p>
+                    <button onclick="location.reload()" style="padding: 10px; background: #ff9f43; border: none; border-radius: 10px; color: white; cursor: pointer;">Reiniciar</button>
                 `;
             }
         }
 
-        window.onload = cargarPregunta;
+        window.onload = cargarPreg;
     </script>
 </body>
 </html>
