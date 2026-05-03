@@ -222,15 +222,17 @@
             btnSiguiente.style.display = "block";
         }
 
-        function siguientePregunta() {
+                function siguientePregunta() {
             indiceActual++;
             if (indiceActual < preguntas.length) {
                 cargarPregunta();
             } else {
+                // Mensaje final actualizado con el total de 60
                 document.getElementById('pantalla-juego').innerHTML = `
                     <h2 style="color: #00d2ff;">¡Juego Terminado! 🏆</h2>
-                    <p style="font-size: 1.5rem;">Puntaje final: <b>${puntaje}</b></p>
-                    <button onclick="location.reload()" style="padding: 10px 20px; background: #ff9f43; border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: bold;">Reiniciar</button>
+                    <p style="font-size: 1.5rem;">Tu puntaje es: <b>${puntaje}</b> de un total de <b>60</b></p>
+                    <p style="opacity: 0.8;">${puntaje === 60 ? "¡Eres un experto en álgebra! 🌟" : "¡Buen intento! Sigue practicando."}</p>
+                    <button onclick="location.reload()" style="padding: 10px 20px; background: #ff9f43; border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; margin-top: 15px;">Reiniciar</button>
                 `;
             }
         }
