@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona de Juegos | Criss Creator</title>
+    <style>
+        :root {
+            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --texto: white;
+        }
+
+        .dark-mode {
+            --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --bg-card: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-gradiente);
+            color: var(--texto);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            transition: 0.5s;
+        }
+
+        .contenedor { max-width: 600px; width: 100%; text-align: center; }
+
+        header { margin: 60px 0 30px; }
+
+        .tarjeta-juego {
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            border: 2px solid #00d2ff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        #pregunta-expresion {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ff9f43;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .botones-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: #57606f;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { background: #00d2ff; transform: translateY(-2px); }
+
+        .btn-sig {
+            grid-column: span 2;
+            background: #2ed573;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #feedback { font-size: 1.2rem; margin: 15px 0; font-weight: bold; }
+
+        /* Botones de navegación */
+        .btn-nav {
+            position: fixed; top: 20px; padding: 10px 15px;
+            border-radius: 10px; border: none; background: rgba(255,255,255,0.2);
+            color: white; cursor: pointer; text-decoration: none; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="btn-nav" style="left: 20px;">🏠 Inicio</a>
+    <button class="btn-nav" style="right: 20px;" onclick="toggleDarkMode()">🌓</button>
+
+    <div class="contenedor">
+        <header>
+            <h1>🎮 Zona de Juegos</h1>
+            <p>Demuestra que eres un experto en matemáticas.</p>
+        </header>
+
+        <div class="tarjeta-juego">
+            <h2 id="titulo-juego">¿Qué expresión es?</h2>
+            
+            <div id="pantalla-juego">
+                <div id="pregunta-expresion"></div>
+                
+                <div class="botones-grid">
+                    <button onclick="verificar('Monomio')">Monomio</button>
+                    <button onclick="verificar('Binomio')">Binomio</button>
+                    <button onclick="verificar('Trinomio')">Trinomio</button>
+                    <button onclick="verificar('Polinomio')">Polinomio</button>
+                    <button id="btn-sig" class="btn-sig" onclick="siguiente()">Siguiente Pregunta ➡️</button>
+                </div>
+                
+                <p id="feedback"></p>
+                <div style="font-size: 1.2rem; margin-top: 20px;">
+                    Puntaje: <span id="puntos" style="color: #00d2ff; font-weight: bold;">0</span> / 60
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const preguntas = [
+            { exp: "3x + 5", correct: "Binomio" },
+            { exp: "5y²", correct: "Monomio" },
+            { exp: "a² + 2ab + b²", correct: "Trinomio" },
+            { exp: "x³ + 2x² - x + 1", correct: "Polinomio" },
+            { exp: "10 - 4y", correct: "Binomio" },
+            { exp: "7m", correct: "Monomio" }
+        ];
+
+        let indice = 0;
+        let puntos = 0;
+
+        function cargar() {
+            document.getElementById('btn-sig').style.display = "none";
+            document.getElementById('feedback').innerText = "";
+            document.getElementById('pregunta-expresion').innerText = preguntas[indice].exp;
+        }
+
+        function verificar(resUser) {
+            const btnSig = document.getElementById('btn-sig');
+            if (btnSig.style.display === "block") return;
+
+            const correcta = preguntas[indice].correct;
+            const f = document.getElementById('feedback');
+
+            if (resUser === correcta) {
+                f.innerText = "✅ ¡Correcto!";
+                f.style.color = "#2ed573";
+                puntos += 10;
+            } else {
+                f.innerText = "❌ Incorrecto, era " + correcta;
+                f.style.color = "#ff4757";
+            }
+            document.getElementById('puntos').innerText = puntos;
+            btnSig.style.display = "block";
+        }
+
+        function siguiente() {
+            indice++;
+            if (indice < preguntas.length) {
+                cargar();
+            } else {
+                document.getElementById('pantalla-juego').innerHTML = `
+                    <h2 style="color: #ff9f43;">¡Reto Completado! 🏆</h2>
+                    <p style="font-size: 1.5rem;">Tu puntaje final es: <b>${puntos}</b> de 60</p>
+                    <button onclick="location.reload()" style="background:#ff9f43; width:100%; padding:15px; border-radius:12px; border:none; color:white; font-weight:bold; cursor:pointer;">Reiniciar Juego</button>
+                `;
+            }
+        }
+
+        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+
+        window.onload = cargar;
+    </script>
+</body>
+</html>
