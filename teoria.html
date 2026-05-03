@@ -159,6 +159,28 @@
             </div>
         </section>
 
+                <!-- Sección del Desafío -->
+        <section class="tarjeta-tema" style="background-color: #2f3542; border: 2px solid #00d2ff;">
+            <h2>🎮 Desafío: ¿Qué expresión es?</h2>
+            <p>Pon a prueba lo que aprendiste. Clasifica la siguiente expresión:</p>
+            
+            <div id="pantalla-juego" style="text-align: center; padding: 20px;">
+                <div id="pregunta-expresion" style="font-size: 2rem; font-weight: bold; margin-bottom: 20px; color: #ff9f43;">
+                    3x + 5
+                </div>
+                
+                <div class="botones-juego" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button onclick="verificarRespuesta('Monomio')">Monomio</button>
+                    <button onclick="verificarRespuesta('Binomio')">Binomio</button>
+                    <button onclick="verificarRespuesta('Trinomio')">Trinomio</button>
+                    <button onclick="siguientePregunta()" style="background-color: #2ed573;">Siguiente ➡️</button>
+                </div>
+                
+                <p id="feedback" style="margin-top: 15px; font-weight: bold;"></p>
+                <p>Puntaje: <span id="puntos">0</span></p>
+            </div>
+        </section>
+
     </div>
 
 </body>
