@@ -84,6 +84,17 @@
         }
         .home { left: 20px; text-decoration: none; }
         .dark { right: 20px; }
+
+        .boton-juego {
+    background-color: #ff9f43 !important; /* Naranja llamativo */
+    border: none !important;
+}
+
+.boton-juego:hover {
+    background-color: #ff7f11 !important;
+    transform: scale(1.1) rotate(2deg); /* Un pequeño giro para que se vea divertido */
+}
+
     </style>
 </head>
 <body>
@@ -167,5 +178,9 @@
             document.body.classList.toggle('dark-mode');
         }
     </script>
+    <a href="juegos.html" class="boton-menu boton-juego">
+    🎮 Zona de Juegos
+    </a>
+
 </body>
 </html>
