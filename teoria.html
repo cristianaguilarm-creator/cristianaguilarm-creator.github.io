@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría Matemática - Criss Creator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .contenedor-teoria {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* --- TARJETAS DE TEMAS --- */
+        .tarjeta-tema {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 { color: #00d2ff; margin-top: 0; }
+
+        p { line-height: 1.6; opacity: 0.9; }
+
+        .ejemplo {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-left: 4px solid #00d2ff;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 15px;
+        }
+
+        .btn-inicio {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-inicio:hover { background: white; color: #764ba2; }
+
+        /* Responsive: para que en el celular se vea bien */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .btn-inicio { position: static; margin-bottom: 20px; display: inline-block; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="btn-inicio">🏠 Inicio</a>
+
+    <div class="contenedor-teoria">
+        <header>
+            <h1>📚 Teoría Matemática</h1>
+            <p>Repasa los conceptos básicos antes de usar la calculadora.</p>
+        </header>
+
+        <!-- Sección de Suma -->
+        <section class="tarjeta-tema">
+            <h2>➕ La Suma (Adición)</h2>
+            <p>Es la operación que consiste en añadir dos o más números para obtener una cantidad total. Los números que se suman se llaman <b>sumandos</b>.</p>
+            <div class="ejemplo">
+                Ejemplo: 5 + 3 = 8 <br>
+                (Donde 5 y 3 son sumandos y 8 es el total)
+            </div>
+        </section>
+
+        <!-- Sección de Resta -->
+        <section class="tarjeta-tema">
+            <h2>➖ La Resta (Sustracción)</h2>
+            <p>Es la operación inversa a la suma. Se trata de quitar una cantidad a otra. El número mayor se llama <b>minuendo</b> y el que quita se llama <b>sustraendo</b>.</p>
+            <div class="ejemplo">
+                Ejemplo: 10 - 4 = 6 <br>
+                (10 es el minuendo, 4 el sustraendo y 6 la diferencia)
+            </div>
+        </section>
+
+        <!-- Sección de Multiplicación -->
+        <section class="tarjeta-tema">
+            <h2>✖️ La Multiplicación</h2>
+            <p>Es una suma abreviada del mismo número varias veces. Los números que se multiplican se llaman <b>factores</b>.</p>
+            <div class="ejemplo">
+                Ejemplo: 4 x 3 = 12 <br>
+                (Es lo mismo que sumar 4 + 4 + 4)
+            </div>
+        </section>
+
+        <!-- Sección de División -->
+        <section class="tarjeta-tema">
+            <h2>➗ La División</h2>
+            <p>Consiste en repartir una cantidad en partes iguales. Sus partes son: <b>Dividendo</b> (lo que repartes), <b>Divisor</b> (entre cuántos) y <b>Cociente</b> (resultado).</p>
+            <div class="ejemplo">
+                Ejemplo: 20 ÷ 5 = 4 <br>
+                (20 dulces repartidos entre 5 niños = 4 dulces cada uno)
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
