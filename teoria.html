@@ -60,6 +60,7 @@
             margin-top: 15px;
             border-radius: 5px;
         }
+        .algebra .ejemplo { border-left-color: #ff9f43; }
 
         /* --- SECCIÓN DE EJERCICIOS --- */
         .ejercicio-caja {
@@ -76,6 +77,7 @@
             border: none;
             width: 150px;
             margin-right: 10px;
+            color: #333;
         }
 
         .ejercicio-caja button {
@@ -122,53 +124,74 @@
     <div class="contenedor-teoria">
         <header>
             <h1>📚 Biblioteca de Teoría</h1>
-            <p>Aprende y practica antes del desafío final.</p>
+            <p>Todo lo que necesitas saber de matemáticas.</p>
         </header>
 
-        <!-- Teoría de Polinomios -->
-        <section class="tarjeta-tema polinomios">
-            <h2>🏷️ Polinomios</h2>
-            <p>Un polinomio es una expresión con varios términos:</p>
+        <!-- 1. Operaciones Básicas -->
+        <section class="tarjeta-tema">
+            <h2>➕ Aritmética Básica</h2>
+            <p>Son las bases para cualquier cálculo:</p>
             <ul>
-                <li><b>Monomio:</b> 1 término (Ej: 3x)</li>
-                <li><b>Binomio:</b> 2 términos (Ej: x + 2)</li>
-                <li><b>Trinomio:</b> 3 términos (Ej: x² + x + 1)</li>
+                <li><b>Suma:</b> Añadir cantidades.</li>
+                <li><b>Resta:</b> Quitar una cantidad a otra.</li>
+                <li><b>Multiplicación:</b> Sumar un número varias veces.</li>
+                <li><b>División:</b> Repartir en partes iguales.</li>
             </ul>
         </section>
 
-        <!-- Ejercicios Prácticos -->
+        <!-- 2. Álgebra -->
+        <section class="tarjeta-tema algebra">
+            <h2>🧬 Álgebra</h2>
+            <p>Usamos letras como <b>x</b> para representar números que no conocemos.</p>
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong><br>
+                x + 5 = 12<br>
+                x = 12 - 5 -> <b>x = 7</b>
+            </div>
+        </section>
+
+        <!-- 3. Polinomios -->
+        <section class="tarjeta-tema polinomios">
+            <h2>🏷️ Polinomios</h2>
+            <p>Clasificación según sus términos:</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
+                <p><b>Monomio:</b> 1 término (Ej: 4x²)</p>
+                <p><b>Binomio:</b> 2 términos (Ej: x + 8)</p>
+                <p><b>Trinomio:</b> 3 términos (Ej: x² + 2x + 1)</p>
+            </div>
+        </section>
+
+        <!-- 4. Ejercicios Prácticos -->
         <section class="tarjeta-tema ejercicios-seccion">
             <h2>📝 Práctica: Polinomios</h2>
-            <p>Escribe la respuesta simplificada (sin espacios):</p>
+            <p>Simplifica las expresiones (sin espacios):</p>
             
             <div class="ejercicio-caja">
                 <p>1. Simplifica: <b>2x + 4x + 3</b></p>
-                <input type="text" id="ans1" placeholder="Escribe aquí tu respuesta!">
+                <input type="text" id="ans1" placeholder="Tu respuesta...">
                 <button onclick="chequearEjer('ans1', '6x+3')">Revisar</button>
                 <span id="f1"></span>
             </div>
 
             <div class="ejercicio-caja">
                 <p>2. Simplifica: <b>5a + 2b - 2a</b></p>
-                <input type="text" id="ans2" placeholder="Escribe aquí tu respuesta!">
+                <input type="text" id="ans2" placeholder="Tu respuesta...">
                 <button onclick="chequearEjer('ans2', '3a+2b')">Revisar</button>
                 <span id="f2"></span>
             </div>
         </section>
 
-        <!-- Juego Desafío -->
+        <!-- 5. Desafío -->
         <section class="tarjeta-tema" style="background-color: #2f3542; border: 2px solid #00d2ff;">
             <h2>🎮 Desafío Final</h2>
             <div id="pantalla-juego" style="text-align: center;">
                 <div id="pregunta-expresion" style="font-size: 2rem; font-weight: bold; margin-bottom: 20px; color: #ff9f43;"></div>
-                
                 <div class="botones-juego" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <button onclick="verificarRes('Monomio')">Monomio</button>
                     <button onclick="verificarRes('Binomio')">Binomio</button>
                     <button onclick="verificarRes('Trinomio')">Trinomio</button>
                     <button id="btn-sig" onclick="sigPreg()" style="background-color: #2ed573; display: none; color: white;">Siguiente ➡️</button>
                 </div>
-                
                 <p id="feedback" style="margin-top: 15px; font-weight: bold;"></p>
                 <p>Puntaje: <span id="puntos">0</span> de 60</p>
             </div>
@@ -176,7 +199,6 @@
     </div>
 
     <script>
-        // Lógica de Ejercicios
         function chequearEjer(id, correcta) {
             const user = document.getElementById(id).value.replace(/\s+/g, '').toLowerCase();
             const f = document.getElementById('f' + id.replace('ans', ''));
@@ -184,7 +206,6 @@
             else { f.innerText = " ❌"; f.style.color = "#ff4757"; }
         }
 
-        // Lógica del Juego
         const preguntas = [
             { exp: "3x + 5", correct: "Binomio" },
             { exp: "5y²", correct: "Monomio" },
@@ -194,8 +215,7 @@
             { exp: "x² + 5x + 6", correct: "Trinomio" }
         ];
 
-        let indice = 0;
-        let puntos = 0;
+        let indice = 0; let puntos = 0;
 
         function cargarPreg() {
             document.getElementById('btn-sig').style.display = "none";
@@ -207,12 +227,8 @@
             if (document.getElementById('btn-sig').style.display === "block") return;
             const correcta = preguntas[indice].correct;
             const f = document.getElementById('feedback');
-            
-            if (resUser === correcta) {
-                f.innerText = "✅ ¡Correcto!"; f.style.color = "#2ed573"; puntos += 10;
-            } else {
-                f.innerText = "❌ Era un " + correcta; f.style.color = "#ff4757";
-            }
+            if (resUser === correcta) { f.innerText = "✅ ¡Correcto!"; f.style.color = "#2ed573"; puntos += 10; }
+            else { f.innerText = "❌ Era un " + correcta; f.style.color = "#ff4757"; }
             document.getElementById('puntos').innerText = puntos;
             document.getElementById('btn-sig').style.display = "block";
         }
@@ -224,11 +240,10 @@
                 document.getElementById('pantalla-juego').innerHTML = `
                     <h2>🏆 ¡Fin del Juego!</h2>
                     <p style="font-size: 1.5rem;">Puntaje: <b>${puntos}</b> de <b>60</b></p>
-                    <button onclick="location.reload()" style="padding: 10px; background: #ff9f43; border: none; border-radius: 10px; color: white; cursor: pointer;">Reiniciar</button>
+                    <button onclick="location.reload()" style="padding: 10px; background: #ff9f43; border: none; border-radius: 10px; color: white;">Reiniciar</button>
                 `;
             }
         }
-
         window.onload = cargarPreg;
     </script>
 </body>
