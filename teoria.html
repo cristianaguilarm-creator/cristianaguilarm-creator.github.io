@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teoría Matemática - Criss Creator</title>
     <style>
+        /* --- ESTILOS GENERALES --- */
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             margin: 0;
@@ -20,38 +21,67 @@
         .contenedor-teoria {
             max-width: 800px;
             width: 100%;
+            padding-bottom: 50px;
         }
 
         header {
             text-align: center;
             margin-bottom: 40px;
+            margin-top: 60px;
         }
 
-        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        h1 { font-size: 2.8rem; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
 
         /* --- TARJETAS DE TEMAS --- */
         .tarjeta-tema {
             background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
         }
 
-        h2 { color: #00d2ff; margin-top: 0; }
+        .tarjeta-tema:hover {
+            transform: translateY(-5px);
+        }
 
-        p { line-height: 1.6; opacity: 0.9; }
+        h2 { color: #00d2ff; margin-top: 0; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .algebra h2 { color: #ff9f43; }
+        .polinomios h2 { color: #ff4757; }
 
+        p { line-height: 1.6; opacity: 0.9; font-size: 1.1rem; }
+
+        /* --- EJEMPLOS Y CLASIFICACIÓN --- */
         .ejemplo {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.25);
             padding: 15px;
-            border-left: 4px solid #00d2ff;
+            border-left: 5px solid #00d2ff;
             font-family: 'Courier New', Courier, monospace;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        .algebra .ejemplo { border-left-color: #ff9f43; }
+        .polinomios .ejemplo { border-left-color: #ff4757; }
+
+        .clasificacion {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
             margin-top: 15px;
         }
 
+        .clasificacion p {
+            margin: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* --- NAVEGACIÓN --- */
         .btn-inicio {
             position: fixed;
             top: 20px;
@@ -59,92 +89,77 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
             text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
             font-weight: bold;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
             transition: 0.3s;
+            z-index: 1000;
         }
 
-        .btn-inicio:hover { background: white; color: #764ba2; }
+        .btn-inicio:hover { background: white; color: #764ba2; transform: scale(1.05); }
 
-        /* Responsive: para que en el celular se vea bien */
+        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .btn-inicio { position: static; margin-bottom: 20px; display: inline-block; }
+            h1 { font-size: 2rem; }
+            .btn-inicio { position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 20px; }
+            header { margin-top: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="btn-inicio">🏠 Inicio</a>
+    <a href="index.html" class="btn-inicio">🏠 Volver al Inicio</a>
 
     <div class="contenedor-teoria">
         <header>
-            <h1>📚 Teoría Matemática</h1>
-            <p>Repasa los conceptos básicos antes de usar la calculadora.</p>
+            <h1>📚 Biblioteca de Teoría</h1>
+            <p>Domina los conceptos desde lo básico hasta el álgebra.</p>
         </header>
 
-        <!-- Sección de Suma -->
+        <!-- Aritmética Básica -->
         <section class="tarjeta-tema">
-            <h2>➕ La Suma (Adición)</h2>
-            <p>Es la operación que consiste en añadir dos o más números para obtener una cantidad total. Los números que se suman se llaman <b>sumandos</b>.</p>
-            <div class="ejemplo">
-                Ejemplo: 5 + 3 = 8 <br>
-                (Donde 5 y 3 son sumandos y 8 es el total)
-            </div>
+            <h2>➕ Operaciones Básicas</h2>
+            <p>Los pilares de las matemáticas:</p>
+            <ul>
+                <li><b>Suma:</b> Agrupar cantidades (Sumandos).</li>
+                <li><b>Resta:</b> Quitar una cantidad de otra (Minuendo y Sustraendo).</li>
+                <li><b>Multiplicación:</b> Sumar un número muchas veces (Factores).</li>
+                <li><b>División:</b> Repartir en partes iguales (Dividendo y Divisor).</li>
+            </ul>
         </section>
 
-        <!-- Sección de Resta -->
-        <section class="tarjeta-tema">
-            <h2>➖ La Resta (Sustracción)</h2>
-            <p>Es la operación inversa a la suma. Se trata de quitar una cantidad a otra. El número mayor se llama <b>minuendo</b> y el que quita se llama <b>sustraendo</b>.</p>
-            <div class="ejemplo">
-                Ejemplo: 10 - 4 = 6 <br>
-                (10 es el minuendo, 4 el sustraendo y 6 la diferencia)
-            </div>
-        </section>
-
-        <!-- Sección de Multiplicación -->
-        <section class="tarjeta-tema">
-            <h2>✖️ La Multiplicación</h2>
-            <p>Es una suma abreviada del mismo número varias veces. Los números que se multiplican se llaman <b>factores</b>.</p>
-            <div class="ejemplo">
-                Ejemplo: 4 x 3 = 12 <br>
-                (Es lo mismo que sumar 4 + 4 + 4)
-            </div>
-        </section>
-
-        <!-- Sección de División -->
-        <section class="tarjeta-tema">
-            <h2>➗ La División</h2>
-            <p>Consiste en repartir una cantidad en partes iguales. Sus partes son: <b>Dividendo</b> (lo que repartes), <b>Divisor</b> (entre cuántos) y <b>Cociente</b> (resultado).</p>
-            <div class="ejemplo">
-                Ejemplo: 20 ÷ 5 = 4 <br>
-                (20 dulces repartidos entre 5 niños = 4 dulces cada uno)
-            </div>
-        </section>
-    </div>
-
-            <!-- Sección de Álgebra -->
+        <!-- Álgebra -->
         <section class="tarjeta-tema algebra">
-            <h2>🧬 Álgebra Básica</h2>
-            <p>El álgebra es la parte de las matemáticas donde usamos <b>letras</b> (como <i>x</i> o <i>y</i>) para representar números que no conocemos todavía. Estas letras se llaman <b>variables</b>.</p>
+            <h2>🧬 Introducción al Álgebra</h2>
+            <p>Usamos letras (<b>variables</b>) para encontrar valores desconocidos. La clave es mantener la igualdad como una balanza.</p>
+            <div class="ejemplo">
+                <strong>Ecuación simple:</strong><br>
+                x + 10 = 25 <br>
+                x = 25 - 10 <br>
+                <strong>x = 15</strong>
+            </div>
+        </section>
+
+        <!-- Polinomios -->
+        <section class="tarjeta-tema polinomios">
+            <h2>🏷️ Clasificación de Expresiones</h2>
+            <p>Según el número de términos, las expresiones tienen nombres especiales:</p>
             
-            <p><b>Regla de oro:</b> Lo que haces a un lado del signo "=" debes hacerlo también al otro lado para mantener el equilibrio.</p>
+            <div class="clasificacion">
+                <p><strong>1. Monomio:</strong> 1 solo término. <br><small>Ej: 5y³</small></p>
+                <p><strong>2. Binomio:</strong> 2 términos (separados por + o -). <br><small>Ej: x² + 9</small></p>
+                <p><strong>3. Trinomio:</strong> 3 términos. <br><small>Ej: a² + 2ab + b²</small></p>
+                <p><strong>4. Polinomio:</strong> 4 términos o más. <br><small>Ej: x³ + x² + x + 1</small></p>
+            </div>
 
             <div class="ejemplo">
-                <strong>Ejemplo de Ecuación:</strong><br>
-                x + 5 = 12 <br><br>
-                <em>¿Cómo resolvemos x?</em><br>
-                Pasamos el 5 restando al otro lado:<br>
-                x = 12 - 5 <br>
-                <strong>x = 7</strong>
+                <strong>Nota:</strong> Un término es un conjunto de números y letras que no están separados por sumas o restas.
             </div>
-            
-            <p style="margin-top: 15px; font-size: 0.9rem; font-style: italic;">
-                💡 Dato curioso: La letra más usada es la "x" porque viene de la palabra árabe "al-shalan" (la cosa).
-            </p>
         </section>
+
+    </div>
 
 </body>
 </html>
