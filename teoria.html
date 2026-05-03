@@ -5,17 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teoría Matemática - Criss Creator</title>
     <style>
-        /* --- ESTILOS GENERALES --- */
+        /* --- VARIABLES DE COLOR (Para cambiar fácil) --- */
+        :root {
+            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --color-texto: white;
+            --bg-tarjeta: rgba(255, 255, 255, 0.1);
+            --borde-tarjeta: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- CLASE PARA MODO OSCURO --- */
+        .dark-mode {
+            --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --bg-tarjeta: rgba(0, 0, 0, 0.4);
+            --borde-tarjeta: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--bg-gradiente);
+            color: var(--color-texto);
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            transition: background 0.5s ease; /* Transición suave */
         }
 
         .contenedor-teoria {
@@ -24,25 +39,34 @@
             padding-bottom: 50px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            margin-top: 60px;
+        header { text-align: center; margin-bottom: 40px; margin-top: 60px; }
+
+        /* --- BOTÓN MODO OSCURO --- */
+        .btn-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1001;
+            transition: 0.3s;
         }
 
-        h1 { font-size: 2.8rem; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        .btn-toggle:hover { transform: scale(1.1); background: white; }
 
-        /* --- TARJETAS DE TEMAS --- */
+        /* --- TARJETAS --- */
         .tarjeta-tema {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--bg-tarjeta);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--borde-tarjeta);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
         }
 
         h2 { color: #00d2ff; margin-top: 0; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
@@ -60,48 +84,12 @@
             margin-top: 15px;
             border-radius: 5px;
         }
-        .algebra .ejemplo { border-left-color: #ff9f43; }
 
-        /* --- SECCIÓN DE EJERCICIOS --- */
-        .ejercicio-caja {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
+        /* --- BOTONES Y EJERCICIOS --- */
+        .ejercicio-caja { background: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .ejercicio-caja input { padding: 8px; border-radius: 5px; border: none; width: 150px; color: #333; }
+        .ejercicio-caja button { padding: 8px 15px; background-color: #2ed573; border: none; border-radius: 5px; color: white; cursor: pointer; }
 
-        .ejercicio-caja input {
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-            width: 150px;
-            margin-right: 10px;
-            color: #333;
-        }
-
-        .ejercicio-caja button {
-            padding: 8px 15px;
-            background-color: #2ed573;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* --- ESTILOS DEL JUEGO --- */
-        .botones-juego button {
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            background-color: #57606f;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* --- NAVEGACIÓN --- */
         .btn-inicio {
             position: fixed;
             top: 20px;
@@ -115,9 +103,14 @@
             border: 1px solid rgba(255,255,255,0.3);
             z-index: 1000;
         }
+
+        .botones-juego button { padding: 10px; border-radius: 8px; border: none; background-color: #57606f; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
+
+    <!-- Botón para cambiar modo -->
+    <button class="btn-toggle" onclick="toggleDarkMode()" title="Cambiar modo">🌓</button>
 
     <a href="index.html" class="btn-inicio">🏠 Inicio</a>
 
@@ -127,61 +120,37 @@
             <p>Todo lo que necesitas saber de matemáticas.</p>
         </header>
 
-        <!-- 1. Operaciones Básicas -->
         <section class="tarjeta-tema">
             <h2>➕ Aritmética Básica</h2>
-            <p>Son las bases para cualquier cálculo:</p>
             <ul>
                 <li><b>Suma:</b> Añadir cantidades.</li>
-                <li><b>Resta:</b> Quitar una cantidad a otra.</li>
-                <li><b>Multiplicación:</b> Sumar un número varias veces.</li>
-                <li><b>División:</b> Repartir en partes iguales.</li>
+                <li><b>Resta:</b> Quitar cantidades.</li>
+                <li><b>Multiplicación:</b> Suma repetida.</li>
+                <li><b>División:</b> Reparto igualitario.</li>
             </ul>
         </section>
 
-        <!-- 2. Álgebra -->
         <section class="tarjeta-tema algebra">
             <h2>🧬 Álgebra</h2>
-            <p>Usamos letras como <b>x</b> para representar números que no conocemos.</p>
-            <div class="ejemplo">
-                <strong>Ejemplo:</strong><br>
-                x + 5 = 12<br>
-                x = 12 - 5 -> <b>x = 7</b>
-            </div>
+            <p>Usamos letras para números desconocidos.</p>
+            <div class="ejemplo">x + 5 = 12 -> <b>x = 7</b></div>
         </section>
 
-        <!-- 3. Polinomios -->
         <section class="tarjeta-tema polinomios">
             <h2>🏷️ Polinomios</h2>
-            <p>Clasificación según sus términos:</p>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
-                <p><b>Monomio:</b> 1 término (Ej: 4x²)</p>
-                <p><b>Binomio:</b> 2 términos (Ej: x + 8)</p>
-                <p><b>Trinomio:</b> 3 términos (Ej: x² + 2x + 1)</p>
-            </div>
+            <p><b>Monomio:</b> 1 término | <b>Binomio:</b> 2 términos | <b>Trinomio:</b> 3 términos.</p>
         </section>
 
-        <!-- 4. Ejercicios Prácticos -->
         <section class="tarjeta-tema ejercicios-seccion">
-            <h2>📝 Práctica: Polinomios</h2>
-            <p>Simplifica las expresiones (sin espacios):</p>
-            
+            <h2>📝 Práctica</h2>
             <div class="ejercicio-caja">
-                <p>1. Simplifica: <b>2x + 4x + 3</b></p>
-                <input type="text" id="ans1" placeholder="Tu respuesta...">
+                <p>1. 2x + 4x + 3</p>
+                <input type="text" id="ans1" placeholder="Respuesta...">
                 <button onclick="chequearEjer('ans1', '6x+3')">Revisar</button>
                 <span id="f1"></span>
             </div>
-
-            <div class="ejercicio-caja">
-                <p>2. Simplifica: <b>5a + 2b - 2a</b></p>
-                <input type="text" id="ans2" placeholder="Tu respuesta...">
-                <button onclick="chequearEjer('ans2', '3a+2b')">Revisar</button>
-                <span id="f2"></span>
-            </div>
         </section>
 
-        <!-- 5. Desafío -->
         <section class="tarjeta-tema" style="background-color: #2f3542; border: 2px solid #00d2ff;">
             <h2>🎮 Desafío Final</h2>
             <div id="pantalla-juego" style="text-align: center;">
@@ -199,6 +168,11 @@
     </div>
 
     <script>
+        // FUNCIÓN MODO OSCURO
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
         function chequearEjer(id, correcta) {
             const user = document.getElementById(id).value.replace(/\s+/g, '').toLowerCase();
             const f = document.getElementById('f' + id.replace('ans', ''));
@@ -237,11 +211,7 @@
             indice++;
             if (indice < preguntas.length) { cargarPreg(); }
             else {
-                document.getElementById('pantalla-juego').innerHTML = `
-                    <h2>🏆 ¡Fin del Juego!</h2>
-                    <p style="font-size: 1.5rem;">Puntaje: <b>${puntos}</b> de <b>60</b></p>
-                    <button onclick="location.reload()" style="padding: 10px; background: #ff9f43; border: none; border-radius: 10px; color: white;">Reiniciar</button>
-                `;
+                document.getElementById('pantalla-juego').innerHTML = `<h2>🏆 ¡Fin del Juego!</h2><p>Puntaje: ${puntos} de 60</p><button onclick="location.reload()" style="padding: 10px; background: #ff9f43; border: none; border-radius: 10px; color: white;">Reiniciar</button>`;
             }
         }
         window.onload = cargarPreg;
