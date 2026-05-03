@@ -199,9 +199,10 @@
     </div>
 
 <script>
+    // 1. Lista de preguntas bien organizada
     const preguntas = [
+        { exp: "3x + 5", correct: "Binomio" },
         { exp: "5y²", correct: "Monomio" },
-        { exp: "x + 10", correct: "Binomio" },
         { exp: "a² + 2ab + b²", correct: "Trinomio" },
         { exp: "8", correct: "Monomio" },
         { exp: "3x - 4y", correct: "Binomio" },
@@ -211,12 +212,18 @@
     let indiceActual = 0;
     let puntaje = 0;
 
+    // 2. Esta función CARGA la pregunta apenas abre la página
+    function cargarPregunta() {
+        document.getElementById('pregunta-expresion').innerText = preguntas[indiceActual].exp;
+        document.getElementById('feedback').innerText = "";
+    }
+
     function verificarRespuesta(respuestaUsuario) {
         const feedback = document.getElementById('feedback');
         const respuestaCorrecta = preguntas[indiceActual].correct;
 
         if (respuestaUsuario === respuestaCorrecta) {
-            feedback.innerText = "✅ ¡Correcto!";
+            feedback.innerText = "✅ ¡Correcto! Es un " + respuestaCorrecta;
             feedback.style.color = "#2ed573";
             puntaje += 10;
         } else {
@@ -227,10 +234,14 @@
     }
 
     function siguientePregunta() {
+        // Pasa a la siguiente o vuelve al inicio si se acaban
         indiceActual = (indiceActual + 1) % preguntas.length;
-        document.getElementById('pregunta-expresion').innerText = preguntas[indiceActual].exp;
-        document.getElementById('feedback').innerText = "";
+        cargarPregunta();
     }
+
+    // 3. ¡IMPORTANTE! Esto hace que el juego empiece bien al cargar la web
+    window.onload = cargarPregunta;
 </script>
+
 </body>
 </html>
