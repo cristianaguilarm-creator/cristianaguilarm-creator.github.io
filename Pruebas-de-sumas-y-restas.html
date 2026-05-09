@@ -100,19 +100,19 @@
     <button class="btn-toggle" onclick="toggleDarkMode()" style="position: fixed; top: 20px; right: 20px; cursor: pointer; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; padding: 10px; font-size: 20px;">🌓</button>
     
     <div class="card">
-      <div class="sumas">
+      <div class="sumas sumas-boton">
         <h3>¿Cuanto es 20+74?</h3>
         <input type="number" id="number1" placeholder="Responde aquí...">
+        <div class="botones">
+          <button onclick="operar('+')">Sumar</button>
+        </div>
       </div>
-      <div class="botones">
-        <button onclick="operar('+')">Sumar</button>
-      </div>
-      <div class="restas">
+      <div class="restas restas-boton">
         <h3>¿Cuanto es 46-23?</h3>
         <input type="number" id="number2" placeholder="Responde aquí...">
-      </div>
-      <div class="botones">
-        <button onclick="operar('-')">Restar</button>
+        <div class="botones">
+          <button onclick="operar('-')">Restar</button>
+        </div>
       </div>
     </div>
     <script>
