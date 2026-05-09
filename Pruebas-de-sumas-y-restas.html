@@ -5,10 +5,44 @@
   </head>
   <body>
     <style>
-      body { font-family: -apple-system, sans-serif; background-color: #f6f8fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: blue; padding: 2rem; border-radius: 8px; border: 1px solid #d0d7de; box-shadow: 0 8px 24px rgba(140, 149, 159, 0.1); width: 320px; }
-      .sumas { background: green; padding: 1rem; border-radius: 8px; border: 1px; }
-      .restas { background: red; padding: 1rem; border-radius: 8px; border: 1px; }
+          .dark-mode {
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+    }
+    .dark-mode .contenedor { /* Hola a quien este sapeando el código xd*/
+        background-color: #1e1e1e;
+        color: white;
+    }
+    .dark-mode h1 { color: #00d2ff; }
+        /* --- ESTILOS --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card { 
+          background: blue;
+          padding: 2rem;
+          border-radius: 8px;
+          border: 1px solid #d0d7de;
+          box-shadow: 0 8px 24px rgba(140, 149, 159, 0.1);
+          width: 320px;
+        }
+      .sumas {
+        background: green;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px; 
+      }
+      .restas { background: red;
+               padding: 1rem;
+               border-radius: 8px;
+               border: 1px; 
+              }
     </style>
     <div class="card">
       <div class="sumas">
