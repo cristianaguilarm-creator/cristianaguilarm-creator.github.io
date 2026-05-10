@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pruebas de sumas y restas</title>
     <style>
-          .dark-mode {
-        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
-    }
-    .dark-mode .card { /* Hola a quien este sapeando el código xd*/
-        background-color: #1e1e1e;
-        color: white;
-    }
-    .dark-mode h1 { color: #00d2ff; }
         /* --- ESTILOS --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,97 +14,62 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            transition: 0.5s;
         }
 
-      input {
-            width: 80%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            outline: none;
-            font-size: 16px;
-            transition: border-color 0.3s;
+        .dark-mode {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
         }
-
-        input:focus {
-            border-color: #764ba2;
-        }
-
-      .botones {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 20px;
-      }
-      
-      .btn-inicio {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 10px 15px;
-    background-color: rgba(255, 255, 255, 0.2); /* Color semi-transparente */
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    transition: all 0.3s;
-}
-
-.btn-inicio:hover {
-    background-color: white;
-    color: #764ba2; /* Cambia al color de tu fondo */
-    transform: scale(1.05);
-            }
 
         .card { 
-          background: blue;
-          padding: 2rem;
-          border-radius: 8px;
-          border: 1px solid #d0d7de;
-          box-shadow: 0 8px 24px rgba(140, 149, 159, 0.1);
-          width: 320px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            width: 350px;
         }
-      .sumas {
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px; 
-      }
-      
-      .sumas-boton {
-        background: green;
-      }
-      
-      .restas { 
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px; 
-      }
-      
-      .restas-boton {
-        background: red;
-      }
-      
-      .btn-volver {
-            display: inline-block;
-            margin-top: 25px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
+
+        .dark-mode .card { background-color: #1e1e1e; color: white; }
+
+        .pregunta-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
             padding: 10px 20px;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
             transition: 0.3s;
+            width: 100%;
         }
 
-        .btn-volver:hover { background: white; color: #764ba2; }
+        .btn-suma { background: #28a745; }
+        .btn-suma:hover { background: #218838; transform: scale(1.05); }
+        
+        .btn-resta { background: #dc3545; }
+        .btn-resta:hover { background: #c82333; transform: scale(1.05); }
 
-      .btn-toggle {
+        .btn-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -122,35 +79,49 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
-            transition: 0.3s;
         }
-        .btn-toggle:hover { background: white; transform: rotate(30deg); }
     </style>
-  </head>
-  <body>
+</head>
+<body>
 
-    <button class="btn-toggle" onclick="toggleDarkMode()" style="position: fixed; top: 20px; right: 20px; cursor: pointer; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; padding: 10px; font-size: 20px;">🌓</button>
+    <button class="btn-toggle" onclick="toggleDarkMode()">🌓</button>
     
     <div class="card">
-      <div class="sumas">
-        <h3>¿Cuanto es 20+74?</h3>
-        <input type="number" id="number1" placeholder="Responde aquí...">
-        <div class="botones sumas-boton">
-          <button onclick="operar('+')">Sumar</button>
+        <div class="pregunta-box">
+            <h3>¿Cuánto es 20 + 74?</h3>
+            <input type="number" id="ans_suma" placeholder="Tu respuesta...">
+            <button class="btn-suma" onclick="validar(1)">Validar Suma</button>
         </div>
-      </div>
-      <div class="restas">
-        <h3>¿Cuanto es 46-23?</h3>
-        <input type="number" id="number2" placeholder="Responde aquí...">
-        <div class="botones restas-boton">
-          <button onclick="operar('-')">Restar</button>
+
+        <div class="pregunta-box">
+            <h3>¿Cuánto es 46 - 23?</h3>
+            <input type="number" id="ans_resta" placeholder="Tu respuesta...">
+            <button class="btn-resta" onclick="validar(2)">Validar Resta</button>
         </div>
-      </div>
     </div>
+
     <script>
-      function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-      }
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function validar(tipo) {
+            if (tipo === 1) {
+                const res = document.getElementById('ans_suma').value;
+                if (parseInt(res) === 94) {
+                    alert("¡Correcto! 🌟");
+                } else {
+                    alert("Sigue intentando... ❌");
+                }
+            } else {
+                const res = document.getElementById('ans_resta').value;
+                if (parseInt(res) === 23) {
+                    alert("¡Excelente resta! 🎯");
+                } else {
+                    alert("Casi, pero no. Intenta otra vez. ❌");
+                }
+            }
+        }
     </script>
-  </body>
+</body>
 </html>
