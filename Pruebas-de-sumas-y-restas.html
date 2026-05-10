@@ -5,128 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pruebas de sumas y restas</title>
     <style>
-        /* --- ESTILOS --- */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            transition: 0.5s;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; transition: 0.5s;
         }
-
-        .dark-mode {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
-        }
-
+        .dark-mode { background: #1a1a2e !important; }
+        
         .card { 
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            width: 350px;
+            background: white; padding: 2rem; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 320px; text-align: center;
         }
+        .dark-mode .card { background: #16213e; color: white; }
 
-        .dark-mode .card { background-color: #1e1e1e; color: white; }
-
-        .pregunta-box {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #333;
-        }
+        .pregunta-contenedor { margin-bottom: 20px; }
+        
+        h2 { font-size: 2rem; margin: 10px 0; color: #764ba2; }
+        .dark-mode h2 { color: #4ecca3; }
 
         input {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: center;
+            width: 80%; padding: 12px; margin: 15px 0;
+            border: 2px solid #ddd; border-radius: 10px;
+            font-size: 1.2rem; text-align: center;
         }
 
         button {
-            cursor: pointer;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            transition: 0.3s;
-            width: 100%;
+            width: 100%; padding: 12px; border: none;
+            border-radius: 10px; background: #764ba2;
+            color: white; font-weight: bold; cursor: pointer;
+            font-size: 1rem; transition: 0.3s;
         }
+        button:hover { background: #5a3682; transform: scale(1.02); }
 
-        .btn-suma { background: #28a745; }
-        .btn-suma:hover { background: #218838; transform: scale(1.05); }
-        
-        .btn-resta { background: #dc3545; }
-        .btn-resta:hover { background: #c82333; transform: scale(1.05); }
-
-        .btn-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-        }
+        .score { font-weight: bold; margin-top: 15px; color: #666; }
     </style>
 </head>
 <body>
 
-    <button class="btn-toggle" onclick="toggleDarkMode()">🌓</button>
-    
     <div class="card">
-        <div class="pregunta-box">
-            <h3>¿Cuánto es 20 + 74?</h3>
-            <input type="number" id="ans_suma" placeholder="Tu respuesta...">
-            <button class="btn-suma" onclick="validar(1)">Validar Suma</button>
+        <div class="pregunta-contenedor">
+            <p id="tipo-operacion">Resuelve la suma:</p>
+            <h2 id="ejercicio">0 + 0</h2>
+            <input type="number" id="respuesta" placeholder="?" autofocus>
+            <button onclick="comprobar()">¡Verificar!</button>
         </div>
-
-        <div class="pregunta-box">
-            <h3>¿Cuánto es 46 - 23?</h3>
-            <input type="number" id="ans_resta" placeholder="Tu respuesta...">
-            <button class="btn-resta" onclick="validar(2)">Validar Resta</button>
-        </div>
-
-        <div class="pregunta-box">
-            <h3>¿Cuánto es 39 - 47</h3>
-            <input type="number" id="ans_resta" placeholder="Tu respuesta...">
-            <button class="btn-resta" onclick="validar(3)">Validar Resta</button>
+        <div class="score">Puntos: <span id="puntos">0</span></div>
     </div>
 
     <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        let resultadoCorrecto;
+        let puntos = 0;
+
+        // Función para crear una nueva operación aleatoria
+        function nuevaOperacion() {
+            const num1 = Math.floor(Math.random() * 50) + 1; // Número del 1 al 50
+            const num2 = Math.floor(Math.random() * 50) + 1;
+            const esSuma = Math.random() > 0.5; // Elige azar entre suma o resta
+
+            if (esSuma) {
+                resultadoCorrecto = num1 + num2;
+                document.getElementById('ejercicio').innerText = `${num1} + ${num2}`;
+                document.getElementById('tipo-operacion').innerText = "Resuelve la suma:";
+            } else {
+                // Para que la resta no dé negativo, ponemos el mayor primero
+                const mayor = Math.max(num1, num2);
+                const menor = Math.min(num1, num2);
+                resultadoCorrecto = mayor - menor;
+                document.getElementById('ejercicio').innerText = `${mayor} - ${menor}`;
+                document.getElementById('tipo-operacion').innerText = "Resuelve la resta:";
+            }
+            
+            document.getElementById('respuesta').value = ""; // Limpiar input
+            document.getElementById('respuesta').focus();    // Poner el cursor listo
         }
 
-        function validar(tipo) {
-            if (tipo === 1) {
-                const res = document.getElementById('ans_suma').value;
-                if (parseInt(res) === 94) {
-                    alert("¡Correcto! 🌟");
-                } else {
-                    alert("Sigue intentando... ❌");
-                }
+        function comprobar() {
+            const respuestaUsuario = parseInt(document.getElementById('respuesta').value);
+            
+            if (respuestaUsuario === resultadoCorrecto) {
+                puntos++;
+                document.getElementById('puntos').innerText = puntos;
+                alert("¡Genial! +1 punto");
+                nuevaOperacion(); // Carga otra pregunta automáticamente
             } else {
-                const res = document.getElementById('ans_resta').value;
-                if (parseInt(res) === 23) {
-                    alert("¡Excelente resta! 🎯");
-                } else {
-                    alert("Casi, pero no. Intenta otra vez. ❌");
-                }
+                alert("Ups, intenta esa de nuevo");
             }
         }
+
+        // Iniciar el primer ejercicio al cargar la página
+        nuevaOperacion();
     </script>
 </body>
 </html>
