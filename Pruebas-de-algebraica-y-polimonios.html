@@ -1,1 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío 1000 Puntos: Álgebra</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; transition: 0.5s; color: #fff;
+        }
+        .dark-mode { background: #000000 !important; }
 
+        .btn-esquina {
+            position: fixed; top: 20px; z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            color: white; text-decoration: none; border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px); transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .btn-esquina:hover { background: white; color: #0f2027; transform: scale(1.05); }
+        .btn-izquierdo { left: 20px; padding: 8px 15px; border-radius: 8px; font-size: 14px; font-weight: bold; }
+        .btn-derecho { right: 20px; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border:none; font-size: 18px; }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); width: 380px; text-align: center; color: #333;
+        }
+        .dark-mode .card { background: #1a1a1a; color: white; border: 1px solid #444; }
+
+        .pregunta-box {
+            background: #f8f9fa; padding: 20px; border-radius: 12px;
+            margin-bottom: 15px; border: 1px solid #dee2e6;
+        }
+        .dark-mode .pregunta-box { background: #2d2d2d; border: none; }
+
+        .ecuacion { font-size: 1.4rem; font-weight: bold; color: #2c5364; margin-bottom: 10px; display: block; }
+        .dark-mode .ecuacion { color: #00d2ff; }
+
+        input {
+            width: 80%; padding: 12px; margin: 10px 0;
+            border-radius: 8px; border: 2px solid #ddd; text-align: center; font-size: 1.1rem;
+        }
+        button.accion { 
+            width: 100%; padding: 12px; border: none; border-radius: 8px; 
+            color: white; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem;
+        }
+        .btn-algebra { background: #8e44ad; }
+        .btn-algebra:hover { background: #732d91; }
+
+        .progreso-container { margin-bottom: 20px; }
+        .barra-fondo { background: #e9ecef; border-radius: 10px; height: 15px; overflow: hidden; }
+        .barra-relleno { background: #00d2ff; width: 0%; height: 100%; transition: 0.8s ease-out; }
+    </style>
+</head>
+<body>
+
+    <a href="pruebas.html" class="btn-esquina btn-izquierdo">⬅ Pruebas</a>
+    <button class="btn-esquina btn-derecho" onclick="document.body.classList.toggle('dark-mode')">🌓</button>
+
+    <div class="card">
+        <div class="progreso-container">
+            <div style="margin-bottom: 8px; font-weight: bold;">Nivel Álgebra: <span id="puntos">0</span> / 1000</div>
+            <div class="barra-fondo"><div id="barra" class="barra-relleno"></div></div>
+        </div>
+
+        <div class="pregunta-box">
+            <span id="tipo_ejercicio" style="font-size: 0.8rem; text-transform: uppercase; color: #888;">Cargando...</span>
+            <div class="ecuacion" id="txt_algebra">...</div>
+            <p style="font-size: 0.85rem; color: #666; margin-top: 0;">Simplifica (ej: 5x)</p>
+            <input type="text" id="in_algebra" placeholder="Respuesta aquí">
+            <button class="accion btn-algebra" onclick="validar()">Verificar Respuesta</button>
+        </div>
+    </div>
+
+    <script>
+        let puntosTotales = parseInt(localStorage.getItem('puntosAlgebra')) || 0;
+        let respuestaCorrecta = "";
+        let puntosEnJuego = 0;
+
+        function generar() {
+            const tipos = ['monomio', 'binomio', 'trinomio'];
+            const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+            let ejercicio = "";
+            let coeficienteFinal = 0;
+            
+            // Generamos puntos aleatorios entre 25 y 50
+            puntosEnJuego = Math.floor(Math.random() * (50 - 25 + 1)) + 25;
+            document.getElementById('tipo_ejercicio').innerText = `${tipo} (+${puntosEnJuego} pts)`;
+
+            if (tipo === 'monomio') {
+                let a = Math.floor(Math.random() * 15) + 2;
+                let b = Math.floor(Math.random() * 15) + 2;
+                ejercicio = `${a}x + ${b}x`;
+                coeficienteFinal = a + b;
+                respuestaCorrecta = coeficienteFinal + "x";
+            } 
+            else if (tipo === 'binomio') {
+                let a = Math.floor(Math.random() * 10) + 2;
+                let b = Math.floor(Math.random() * 10) + 2;
+                let c = Math.floor(Math.random() * 10) + 2;
+                ejercicio = `(${a}x + ${b}) + (${c}x)`;
+                respuestaCorrecta = (a + c) + "x+" + b;
+            }
+            else if (tipo === 'trinomio') {
+                let a = Math.floor(Math.random() * 5) + 2;
+                let b = Math.floor(Math.random() * 5) + 1;
+                ejercicio = `${a}x^2 + ${b}x^2 + 3x^2`;
+                respuestaCorrecta = (a + b + 3) + "x^2";
+            }
+
+            document.getElementById('txt_algebra').innerText = ejercicio;
+        }
+
+        function validar() {
+            const input = document.getElementById('in_algebra');
+            // Quitamos espacios para evitar errores de formato
+            let userAns = input.value.replace(/\s+/g, '').toLowerCase();
+            let correctAns = respuestaCorrecta.replace(/\s+/g, '').toLowerCase();
+
+            if (userAns === correctAns) {
+                puntosTotales += puntosEnJuego;
+                localStorage.setItem('puntosAlgebra', puntosTotales);
+                input.value = "";
+                actualizar();
+                generar();
+            } else {
+                alert(`¡Incorrecto! La respuesta era ${respuestaCorrecta}. Intenta el siguiente.`);
+                generar(); // Cambia de ejercicio si falla
+            }
+        }
+
+        function actualizar() {
+            document.getElementById('puntos').innerText = puntosTotales;
+            let porcentaje = (puntosTotales / 1000) * 100;
+            document.getElementById('barra').style.width = Math.min(porcentaje, 100) + "%";
+            
+            if (puntosTotales >= 1000) {
+                alert("¡ERES UN MAESTRO DEL ÁLGEBRA! 🎓👑 Has superado los 1000 puntos.");
+                puntosTotales = 0;
+                localStorage.removeItem('puntosAlgebra');
+                actualizar();
+            }
+        }
+
+        window.onload = () => { generar(); actualizar(); };
+    </script>
+</body>
+      </html>
+  
