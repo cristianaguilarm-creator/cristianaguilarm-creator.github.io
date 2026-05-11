@@ -46,10 +46,10 @@
             width: 100%; padding: 10px; border: none; border-radius: 8px; 
             color: white; font-weight: bold; cursor: pointer; transition: 0.3s; 
         }
-        .btn-multi { background: #3b82f6; } /* Azul */
-        .btn-divi { background: #f59e0b; }  /* Naranja */
+        .btn-multi { background: #3b82f6; }
+        .btn-divi { background: #f59e0b; }
 
-        /* Barra */
+        /* Barra de progreso ajustada a 500 */
         .progreso-container { margin-bottom: 20px; }
         .barra-fondo { background: #e2e8f0; border-radius: 10px; height: 12px; overflow: hidden; }
         .barra-relleno { background: #10b981; width: 0%; height: 100%; transition: 0.5s; }
@@ -90,10 +90,10 @@
             respuestas.multi = m1 * m2;
             document.getElementById('txt_multi').innerText = `${m1} x ${m2}`;
 
-            // División Exacta (Invertimos una multiplicación para que siempre dé exacto)
-            let d2 = Math.floor(Math.random() * 9) + 2; // Divisor
-            let resDiv = Math.floor(Math.random() * 9) + 2; // Resultado esperado
-            let d1 = d2 * resDiv; // Dividendo
+            // División Exacta
+            let d2 = Math.floor(Math.random() * 9) + 2;
+            let resDiv = Math.floor(Math.random() * 9) + 2;
+            let d1 = d2 * resDiv;
             respuestas.divi = resDiv;
             document.getElementById('txt_divi').innerText = `${d1} ÷ ${d2}`;
         }
@@ -115,7 +115,10 @@
 
         function actualizar() {
             document.getElementById('puntos').innerText = puntosTotales;
-            document.getElementById('barra').style.width = Math.min(puntosTotales, 500) + "%";
+            // El porcentaje es (puntos / 500) * 100
+            let porcentaje = (puntosTotales / 500) * 100;
+            document.getElementById('barra').style.width = Math.min(porcentaje, 100) + "%";
+            
             if (puntosTotales >= 500) {
                 alert("¡MAESTRO MATEMÁTICO! 🏆 Lograste los 500 puntos.");
                 puntosTotales = 0;
@@ -128,4 +131,3 @@
     </script>
 </body>
 </html>
-
