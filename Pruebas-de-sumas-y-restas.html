@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pruebas de sumas y restas</title>
+    <title>Desafío 100 Puntos: Sumas y Restas</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -12,90 +11,107 @@
             height: 100vh; margin: 0; transition: 0.5s;
         }
         .dark-mode { background: #1a1a2e !important; }
-        
         .card { 
-            background: white; padding: 2rem; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            width: 320px; text-align: center;
+            background: white; padding: 2rem; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 350px; text-align: center;
         }
         .dark-mode .card { background: #16213e; color: white; }
-
-        .pregunta-contenedor { margin-bottom: 20px; }
-        
-        h2 { font-size: 2rem; margin: 10px 0; color: #764ba2; }
-        .dark-mode h2 { color: #4ecca3; }
-
+        .pregunta-box {
+            background: #f8f9fa; padding: 15px; border-radius: 10px;
+            margin-bottom: 15px; border: 1px solid #eee;
+        }
+        .dark-mode .pregunta-box { background: #0f3460; border: none; }
         input {
-            width: 80%; padding: 12px; margin: 15px 0;
-            border: 2px solid #ddd; border-radius: 10px;
-            font-size: 1.2rem; text-align: center;
+            width: 70%; padding: 10px; margin: 10px 0;
+            border-radius: 8px; border: 2px solid #ddd; text-align: center;
         }
-
         button {
-            width: 100%; padding: 12px; border: none;
-            border-radius: 10px; background: #764ba2;
-            color: white; font-weight: bold; cursor: pointer;
-            font-size: 1rem; transition: 0.3s;
+            width: 100%; padding: 10px; border: none; border-radius: 8px;
+            color: white; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        button:hover { background: #5a3682; transform: scale(1.02); }
-
-        .score { font-weight: bold; margin-top: 15px; color: #666; }
+        .btn-suma { background: #28a745; }
+        .btn-resta { background: #dc3545; }
+        .btn-toggle { position: fixed; top: 20px; right: 20px; cursor: pointer; }
+        
+        /* Barra de progreso */
+        .progreso-container { margin-bottom: 20px; }
+        .barra-fondo { background: #eee; border-radius: 10px; height: 12px; }
+        .barra-relleno { 
+            background: #ffc107; width: 0%; height: 100%; 
+            border-radius: 10px; transition: 0.5s; 
+        }
     </style>
 </head>
 <body>
 
+    <button class="btn-toggle" onclick="document.body.classList.toggle('dark-mode')">🌓</button>
+
     <div class="card">
-        <div class="pregunta-contenedor">
-            <p id="tipo-operacion">Resuelve la suma:</p>
-            <h2 id="ejercicio">0 + 0</h2>
-            <input type="number" id="respuesta" placeholder="?" autofocus>
-            <button onclick="comprobar()">¡Verificar!</button>
+        <div class="progreso-container">
+            <div style="margin-bottom: 5px;">Puntos: <span id="puntos">0</span> / 100</div>
+            <div class="barra-fondo">
+                <div id="barra" class="barra-relleno"></div>
+            </div>
         </div>
-        <div class="score">Puntos: <span id="puntos">0</span></div>
+
+        <div class="pregunta-box">
+            <h3 id="txt_suma">Cargando suma...</h3>
+            <input type="number" id="in_suma" placeholder="?">
+            <button class="btn-suma" onclick="validar('suma')">Verificar (+3 pts)</button>
+        </div>
+
+        <div class="pregunta-box">
+            <h3 id="txt_resta">Cargando resta...</h3>
+            <input type="number" id="in_resta" placeholder="?">
+            <button class="btn-resta" onclick="validar('resta')">Verificar (+7 pts)</button>
+        </div>
     </div>
 
     <script>
-        let resultadoCorrecto;
-        let puntos = 0;
+        let puntosTotales = 0;
+        let respuestas = { suma: 0, resta: 0 };
 
-        // Función para crear una nueva operación aleatoria
-        function nuevaOperacion() {
-            const num1 = Math.floor(Math.random() * 50) + 1; // Número del 1 al 50
-            const num2 = Math.floor(Math.random() * 50) + 1;
-            const esSuma = Math.random() > 0.5; // Elige azar entre suma o resta
+        function generar() {
+            // Suma (Números del 1 al 100)
+            let s1 = Math.floor(Math.random() * 100) + 1;
+            let s2 = Math.floor(Math.random() * 100) + 1;
+            respuestas.suma = s1 + s2;
+            document.getElementById('txt_suma').innerText = `${s1} + ${s2}`;
 
-            if (esSuma) {
-                resultadoCorrecto = num1 + num2;
-                document.getElementById('ejercicio').innerText = `${num1} + ${num2}`;
-                document.getElementById('tipo-operacion').innerText = "Resuelve la suma:";
-            } else {
-                // Para que la resta no dé negativo, ponemos el mayor primero
-                const mayor = Math.max(num1, num2);
-                const menor = Math.min(num1, num2);
-                resultadoCorrecto = mayor - menor;
-                document.getElementById('ejercicio').innerText = `${mayor} - ${menor}`;
-                document.getElementById('tipo-operacion').innerText = "Resuelve la resta:";
-            }
-            
-            document.getElementById('respuesta').value = ""; // Limpiar input
-            document.getElementById('respuesta').focus();    // Poner el cursor listo
+            // Resta (Aseguramos que el resultado sea positivo)
+            let r1 = Math.floor(Math.random() * 100) + 50;
+            let r2 = Math.floor(Math.random() * 50) + 1;
+            respuestas.resta = r1 - r2;
+            document.getElementById('txt_resta').innerText = `${r1} - ${r2}`;
         }
 
-        function comprobar() {
-            const respuestaUsuario = parseInt(document.getElementById('respuesta').value);
-            
-            if (respuestaUsuario === resultadoCorrecto) {
-                puntos++;
-                document.getElementById('puntos').innerText = puntos;
-                alert("¡Genial! +1 punto");
-                nuevaOperacion(); // Carga otra pregunta automáticamente
+        function validar(tipo) {
+            const input = document.getElementById('in_' + tipo);
+            const ptsGanados = (tipo === 'suma') ? 3 : 7;
+
+            if (parseInt(input.value) === respuestas[tipo]) {
+                puntosTotales += ptsGanados;
+                input.value = "";
+                actualizar();
+                generar();
             } else {
-                alert("Ups, intenta esa de nuevo");
+                alert("¡Incorrecto! Intenta de nuevo.");
             }
         }
 
-        // Iniciar el primer ejercicio al cargar la página
-        nuevaOperacion();
+        function actualizar() {
+            document.getElementById('puntos').innerText = puntosTotales;
+            let porcentaje = Math.min(puntosTotales, 100);
+            document.getElementById('barra').style.width = porcentaje + "%";
+
+            if (puntosTotales >= 100) {
+                alert("¡LO LOGRASTE! 🎉 Objetivo de 100 puntos alcanzado.");
+                puntosTotales = 0;
+                actualizar();
+            }
+        }
+
+        window.onload = generar;
     </script>
 </body>
 </html>
