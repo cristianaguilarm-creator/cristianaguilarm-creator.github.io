@@ -62,7 +62,7 @@
 
     <div class="card">
         <div class="progreso-container">
-            <div style="margin-bottom: 8px; font-weight: bold;">Puntos Pro: <span id="puntos">0</span> / 100</div>
+            <div style="margin-bottom: 8px; font-weight: bold;">Puntos Pro: <span id="puntos">0</span> / 500</div>
             <div class="barra-fondo"><div id="barra" class="barra-relleno"></div></div>
         </div>
 
@@ -115,9 +115,9 @@
 
         function actualizar() {
             document.getElementById('puntos').innerText = puntosTotales;
-            document.getElementById('barra').style.width = Math.min(puntosTotales, 100) + "%";
+            document.getElementById('barra').style.width = Math.min(puntosTotales, 500) + "%";
             if (puntosTotales >= 500) {
-                alert("¡MAESTRO MATEMÁTICO! 🏆 Lograste los 100 puntos.");
+                alert("¡MAESTRO MATEMÁTICO! 🏆 Lograste los 500 puntos.");
                 puntosTotales = 0;
                 localStorage.removeItem('puntosPro');
                 actualizar();
