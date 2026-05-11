@@ -1,124 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desafío 100 Puntos: Sumas y Restas</title>
     <style>
+        /* --- ESTILOS GENERALES --- */
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh; margin: 0; transition: 0.5s;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            height: 100vh; 
+            margin: 0; 
+            transition: 0.5s;
         }
-        .dark-mode { background: #1a1a2e !important; }
+
+        .dark-mode { 
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important; 
+        }
+
+        /* --- BOTONES DE LAS ESQUINAS --- */
+        .btn-esquina {
+            position: fixed; 
+            top: 20px; 
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            color: white; 
+            text-decoration: none; 
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px); 
+            transition: 0.3s;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+        .btn-esquina:hover { 
+            background: white; 
+            color: #764ba2; 
+            transform: scale(1.05); 
+        }
+
+        .btn-izquierdo { 
+            left: 20px; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-weight: bold; 
+        }
+        .btn-derecho { 
+            right: 20px; 
+            width: 35px; 
+            height: 35px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            font-size: 18px; 
+            border: none;
+        }
+
+        /* --- TARJETA PRINCIPAL --- */
         .card { 
-            background: white; padding: 2rem; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 350px; text-align: center;
+            background: white; 
+            padding: 2rem; 
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            width: 350px; 
+            text-align: center;
         }
-        .dark-mode .card { background: #16213e; color: white; }
+        .dark-mode .card { 
+            background: #1e1e1e; 
+            color: white; 
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
         .pregunta-box {
-            background: #f8f9fa; padding: 15px; border-radius: 10px;
-            margin-bottom: 15px; border: 1px solid #eee;
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 10px;
+            margin-bottom: 15px; 
+            border: 1px solid #eee;
         }
-        .dark-mode .pregunta-box { background: #0f3460; border: none; }
+        .dark-mode .pregunta-box { 
+            background: #2d2d2d; 
+            border: none; 
+        }
+
+        /* --- INPUTS Y BOTONES DE ACCIÓN --- */
         input {
-            width: 70%; padding: 10px; margin: 10px 0;
-            border-radius: 8px; border: 2px solid #ddd; text-align: center;
+            width: 70%; 
+            padding: 10px; 
+            margin: 10px 0;
+            border-radius: 8px; 
+            border: 2px solid #ddd; 
+            text-align: center;
+            font-size: 1.1rem;
         }
-        button {
-            width: 100%; padding: 10px; border: none; border-radius: 8px;
-            color: white; font-weight: bold; cursor: pointer; transition: 0.3s;
+        button.accion { 
+            width: 100%; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 8px; 
+            color: white; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
         }
         .btn-suma { background: #28a745; }
         .btn-resta { background: #dc3545; }
-        .btn-toggle { position: fixed; top: 20px; right: 20px; cursor: pointer; }
+        .btn-suma:hover { background: #218838; }
+        .btn-resta:hover { background: #c82333; }
         
-        /* Barra de progreso */
+        /* --- BARRA DE PROGRESO --- */
         .progreso-container { margin-bottom: 20px; }
-        .barra-fondo { background: #eee; border-radius: 10px; height: 12px; }
+        .barra-fondo { 
+            background: #eee; 
+            border-radius: 10px; 
+            height: 12px; 
+            overflow: hidden;
+        }
         .barra-relleno { 
-            background: #ffc107; width: 0%; height: 100%; 
-            border-radius: 10px; transition: 0.5s; 
+            background: #ffc107; 
+            width: 0%; 
+            height: 100%; 
+            border-radius: 10px; 
+            transition: 0.5s ease-in-out; 
         }
     </style>
 </head>
 <body>
 
-    <!-- Botón Izquierdo: Ir a Pruebas -->
-<a href="Pruebas.html" class="btn-esquina btn-izquierdo">⬅ Pruebas</a>
-
-<!-- Botón Derecho: Modo Oscuro -->
-<button class="btn-esquina btn-derecho" onclick="toggleDarkMode()">🌓</button>
-    
-
-    <button class="btn-toggle" onclick="document.body.classList.toggle('dark-mode')">🌓</button>
+    <!-- Navegación y Utilidades -->
+    <a href="Pruebas.html" class="btn-esquina btn-izquierdo">⬅ Pruebas</a>
+    <button class="btn-esquina btn-derecho" onclick="document.body.classList.toggle('dark-mode')">🌓</button>
 
     <div class="card">
+        <!-- Sistema de Puntos -->
         <div class="progreso-container">
-            <div style="margin-bottom: 5px;">Puntos: <span id="puntos">0</span> / 100</div>
+            <div style="margin-bottom: 8px; font-weight: bold;">
+                Puntos: <span id="puntos">0</span> / 100
+            </div>
             <div class="barra-fondo">
                 <div id="barra" class="barra-relleno"></div>
             </div>
         </div>
 
+        <!-- Pregunta de Suma (Fácil) -->
         <div class="pregunta-box">
-            <h3 id="txt_suma">Cargando suma...</h3>
+            <h3 id="txt_suma">Generando...</h3>
             <input type="number" id="in_suma" placeholder="?">
-            <button class="btn-suma" onclick="validar('suma')">Verificar (+3 pts)</button>
+            <button class="accion btn-suma" onclick="validar('suma')">Verificar (+3 pts)</button>
         </div>
 
+        <!-- Pregunta de Resta (Difícil) -->
         <div class="pregunta-box">
-            <h3 id="txt_resta">Cargando resta...</h3>
+            <h3 id="txt_resta">Generando...</h3>
             <input type="number" id="in_resta" placeholder="?">
-            <button class="btn-resta" onclick="validar('resta')">Verificar (+7 pts)</button>
+            <button class="accion btn-resta" onclick="validar('resta')">Verificar (+7 pts)</button>
         </div>
     </div>
 
     <script>
-        let puntosTotales = 0;
+        // Cargar puntos guardados o iniciar en 0
+        let puntosTotales = parseInt(localStorage.getItem('puntosMatematicas')) || 0;
         let respuestas = { suma: 0, resta: 0 };
 
-        function generar() {
-            // Suma (Números del 1 al 100)
-            let s1 = Math.floor(Math.random() * 100) + 1;
-            let s2 = Math.floor(Math.random() * 100) + 1;
+        function generarPreguntas() {
+            // Suma aleatoria (1-100)
+            let s1 = Math.floor(Math.random() * 99) + 1;
+            let s2 = Math.floor(Math.random() * 99) + 1;
             respuestas.suma = s1 + s2;
             document.getElementById('txt_suma').innerText = `${s1} + ${s2}`;
 
-            // Resta (Aseguramos que el resultado sea positivo)
+            // Resta aleatoria (Resultado siempre positivo)
             let r1 = Math.floor(Math.random() * 100) + 50;
-            let r2 = Math.floor(Math.random() * 50) + 1;
+            let r2 = Math.floor(Math.random() * 49) + 1;
             respuestas.resta = r1 - r2;
             document.getElementById('txt_resta').innerText = `${r1} - ${r2}`;
         }
 
         function validar(tipo) {
             const input = document.getElementById('in_' + tipo);
+            const valorUsuario = parseInt(input.value);
             const ptsGanados = (tipo === 'suma') ? 3 : 7;
 
-            if (parseInt(input.value) === respuestas[tipo]) {
+            if (valorUsuario === respuestas[tipo]) {
                 puntosTotales += ptsGanados;
+                
+                // Guardar progreso en el navegador
+                localStorage.setItem('puntosMatematicas', puntosTotales);
+                
                 input.value = "";
-                actualizar();
-                generar();
+                input.style.borderColor = "#28a745";
+                
+                actualizarInterfaz();
+                generarPreguntas();
             } else {
-                alert("¡Incorrecto! Intenta de nuevo.");
+                input.style.borderColor = "#dc3545";
+                alert("¡Casi! Inténtalo de nuevo. ❌");
             }
         }
 
-        function actualizar() {
+        function actualizarInterfaz() {
             document.getElementById('puntos').innerText = puntosTotales;
+            
+            // Calcular porcentaje para la barra (Máximo 100%)
             let porcentaje = Math.min(puntosTotales, 100);
             document.getElementById('barra').style.width = porcentaje + "%";
 
+            // Verificar si ganó el desafío
             if (puntosTotales >= 100) {
-                alert("¡LO LOGRASTE! 🎉 Objetivo de 100 puntos alcanzado.");
-                puntosTotales = 0;
-                actualizar();
+                setTimeout(() => {
+                    alert("¡FELICIDADES! 🎉 Has alcanzado los 100 puntos.");
+                    puntosTotales = 0;
+                    localStorage.removeItem('puntosMatematicas');
+                    actualizarInterfaz();
+                }, 500);
             }
         }
 
-        window.onload = generar;
+        // Iniciar al cargar la página
+        window.onload = () => {
+            generarPreguntas();
+            actualizarInterfaz();
+        };
     </script>
 </body>
-</html>
+    </html>
+        
