@@ -104,11 +104,19 @@
             color: white;
         }
 
-        /* Efecto de rotación divertido para el botón al pasar el cursor */
-        .btn-toggle:hover {
-            background: white !important;
-            transform: scale(1.1) rotate(30deg);
-        }
+        /* Este efecto de giro SOLO se activará en computadoras con mouse */
+@media (hover: hover) {
+    .btn-toggle:hover {
+        background: white !important;
+        transform: scale(1.1) rotate(30deg);
+    }
+}
+
+/* Para teléfonos: un efecto de pulsación rápido y sutil al tocarlo */
+.btn-toggle:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.4) !important;
+            }
     </style>
 </head>
 <body>
