@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enciclopedia Matemática | Criss Creator</title>
     <style>
+        /* 1. Definimos las variables para el modo claro */
         :root {
             --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --bg-card: rgba(255, 255, 255, 0.1);
@@ -12,6 +13,7 @@
             --accent: #00d2ff;
         }
 
+        /* 2. Variables alternativas cuando se activa el modo oscuro */
         .dark-mode {
             --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             --bg-card: rgba(0, 0, 0, 0.5);
@@ -23,7 +25,7 @@
             color: var(--texto);
             margin: 0;
             padding: 20px;
-            transition: 0.5s;
+            transition: background 0.5s ease-in-out; /* Transición suave de degradados */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,6 +43,7 @@
             border-radius: 15px;
             margin-bottom: 15px;
             overflow: hidden;
+            transition: background-color 0.5s ease-in-out;
         }
 
         .nivel-header {
@@ -51,15 +54,20 @@
             justify-content: space-between;
             font-weight: bold;
             font-size: 1.2rem;
+            user-select: none;
         }
 
-        .nivel-header:hover { background: rgba(255,255,255,0.1); }
+        /* Hover controlado solo para PC */
+        @media (hover: hover) {
+            .nivel-header:hover { background: rgba(255,255,255,0.1); }
+        }
+        .nivel-header:active { background: rgba(255,255,255,0.15); }
 
         .nivel-contenido {
             padding: 0 20px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
             background: rgba(0,0,0,0.1);
         }
 
@@ -76,51 +84,49 @@
             display: block;
         }
 
-        /* --- BOTONES FLOTANTES --- */
+        /* --- BOTONES FLOTANTES CONFIGURADOS PARA MÓVIL --- */
         .btn-flotante {
-            position: fixed; top: 20px; padding: 10px 15px;
+            position: fixed; top: 20px; padding: 12px 15px;
             border-radius: 10px; border: none; background: rgba(255,255,255,0.2);
             color: white; cursor: pointer; z-index: 100; font-weight: bold;
+            transition: transform 0.2s, background-color 0.2s;
         }
+        
         .home { left: 20px; text-decoration: none; }
         .dark { right: 20px; }
 
-        .boton-juego {
-    background-color: #ff9f43 !important; /* Naranja llamativo */
-    border: none !important;
-}
-
-.boton-juego:hover {
-    background-color: #ff7f11 !important;
-    transform: scale(1.1) rotate(2deg); /* Un pequeño giro para que se vea divertido */
-}
+        @media (hover: hover) {
+            .btn-flotante:hover { background: white !important; color: #764ba2; transform: scale(1.05); }
+            .dark:hover { transform: scale(1.05) rotate(30deg); }
+        }
+        .btn-flotante:active { transform: scale(0.95) !important; background: rgba(255,255,255,0.4) !important; }
 
         .btn-juego-final {
-    display: inline-block;
-    background-color: #ff9f43;
-    color: white;
-    text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 15px;
-    box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
-    transition: all 0.3s ease;
-}
+            display: inline-block;
+            background-color: #ff9f43;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
 
-.btn-juego-final:hover {
-    transform: scale(1.1);
-    background-color: #ff8c00;
-    box-shadow: 0 6px 20px rgba(255, 159, 67, 0.6);
-}
-
+        @media (hover: hover) {
+            .btn-juego-final:hover { transform: scale(1.05); background-color: #ff8c00; }
+        }
+        .btn-juego-final:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
 
     <a href="index.html" class="btn-flotante home">🏠 Inicio</a>
-    <button class="btn-flotante dark" onclick="toggleDarkMode()">🌓</button>
+    
+    <!-- Añadida la ID para controlar el emoji de sol/luna automáticamente -->
+    <button id="theme-icon" class="btn-flotante dark" onclick="toggleDarkMode()">🌓</button>
 
     <div class="contenedor">
         <header>
@@ -128,7 +134,7 @@
             <p>Desde lo más básico hasta lo más avanzado.</p>
         </header>
 
-        <!-- NIVEL 1: BÁSICA (1° a 4° Básico) -->
+        <!-- NIVEL 1 -->
         <div class="nivel-seccion">
             <div class="nivel-header" onclick="toggleSeccion(this)">1° a 4° Básico: Las Bases <span>▼</span></div>
             <div class="nivel-contenido">
@@ -142,7 +148,7 @@
             </div>
         </div>
 
-        <!-- NIVEL 2: BÁSICA MEDIA (5° a 8° Básico) -->
+        <!-- NIVEL 2 -->
         <div class="nivel-seccion">
             <div class="nivel-header" onclick="toggleSeccion(this)">5° a 8° Básico: Geometría y Álgebra Inicial <span>▼</span></div>
             <div class="nivel-contenido">
@@ -155,7 +161,7 @@
             </div>
         </div>
 
-        <!-- NIVEL 3: MEDIA INICIAL (1° y 2° Medio) -->
+        <!-- NIVEL 3 -->
         <div class="nivel-seccion">
             <div class="nivel-header" onclick="toggleSeccion(this)">1° y 2° Medio: El Poder del Álgebra <span>▼</span></div>
             <div class="nivel-contenido">
@@ -169,7 +175,7 @@
             </div>
         </div>
 
-        <!-- NIVEL 4: MEDIA FINAL (3° y 4° Medio) -->
+        <!-- NIVEL 4 -->
         <div class="nivel-seccion">
             <div class="nivel-header" onclick="toggleSeccion(this)">3° y 4° Medio: Rumbo a la Universidad <span>▼</span></div>
             <div class="nivel-contenido">
@@ -183,17 +189,15 @@
             </div>
         </div>
 
-        <section class="nivel-seccion" style="background: #2f3542; padding: 30px; text-align: center; border: 2px solid #ff9f43;">
-    <h2 style="color: #ff9f43; margin-top: 0;">🎮 ¿Listo para el reto?</h2>
-    <p>Usa la calculadora o demuestra tus conocimientos en nuestra sala de juegos.</p>
-    
-    <!-- Botón mejorado -->
-    <a href="juegos.html" class="btn-juego-final">
-        🚀 ¡Ir a la Zona de Juegos!
-    </a>
-</section>
+        <!-- SECCIÓN FINAL -->
+        <section class="nivel-seccion" style="background: rgba(47, 53, 66, 0.4); padding: 30px; text-align: center; border: 2px solid #ff9f43;">
+            <h2 style="color: #ff9f43; margin-top: 0;">🎮 ¿Listo para el reto?</h2>
+            <p>Usa la calculadora o demuestra tus conocimientos en nuestra sala de juegos.</p>
+            <a href="juegos.html" class="btn-juego-final">🚀 ¡Ir a la Zona de Juegos!</a>
+        </section>
     </div>
 
+    <!-- Scripts en orden -->
     <script src="js/flechas.js"></script>
     <script src="js/modo-oscuro.js"></script>
 </body>
