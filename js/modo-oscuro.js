@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   
   if (localStorage.getItem("modo-oscuro") === "activado") {
     document.body.classList.add("dark-mode");
-    if (iconoBoton) iconoBoton.innerText = "☀️"; // Si está oscuro, muestra el sol para cambiar a claro
+    if (iconoBoton) iconoBoton.innerText = "🌙"; // Si está oscuro, muestra la luna.
   } else {
-    if (iconoBoton) iconoBoton.innerText = "🌙"; // Si está claro, muestra la luna para cambiar a oscuro
+    if (iconoBoton) iconoBoton.innerText = "☀️"; // Si está claro, muestra el sol.
   }
 });
 
@@ -17,9 +17,9 @@ function toggleDarkMode() {
   
   if (document.body.classList.contains('dark-mode')) {
     localStorage.setItem("modo-oscuro", "activado");
-    if (iconoBoton) iconoBoton.innerText = "☀️";
+    if (iconoBoton) iconoBoton.innerText = "🌙";
   } else {
     localStorage.setItem("modo-oscuro", "desactivado");
-    if (iconoBoton) iconoBoton.innerText = "🌙";
+    if (iconoBoton) iconoBoton.innerText = "☀️";
   }
 }
