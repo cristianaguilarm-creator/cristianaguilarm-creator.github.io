@@ -5,75 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Súper Calculadora</title>
     <style>
-    .dark-mode {
-        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
-    }
-    .dark-mode .contenedor { /* O la clase que uses para el cuadro de la calculadora */
-        background-color: #1e1e1e;
-        color: white;
-    }
-    .dark-mode h1 { color: #00d2ff; }
-        /* --- ESTILOS (El "maquillaje" de tu web) --- */
+        /* 1. Definimos las variables para el modo claro */
+        :root {
+            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-contenedor: white;
+            --color-texto: #2f3542;
+            --color-titulo: #4a4a4a;
+            --bg-resultado: #f8f9fa;
+            --color-borde: #e0e0e0;
+            --color-input: #000000;
+        }
+
+        /* 2. Variables alternativas cuando se activa el modo oscuro */
+        .dark-mode {
+            --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --bg-contenedor: #1e1e1e;
+            --color-texto: #ffffff;
+            --color-titulo: #00d2ff;
+            --bg-resultado: #2d2d2d;
+            --color-borde: #444444;
+            --color-input: #ffffff;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-gradiente);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            /* Transición suave para el cambio de fondo gradual */
+            transition: background 0.5s ease-in-out;
         }
 
         .btn-inicio {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 10px 15px;
-    background-color: rgba(255, 255, 255, 0.2); /* Color semi-transparente */
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    transition: all 0.3s;
-}
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s;
+        }
 
-.btn-inicio:hover {
-    background-color: white;
-    color: #764ba2; /* Cambia al color de tu fondo */
-    transform: scale(1.05);
-}
+        /* Ajuste táctil inteligente para el botón de inicio */
+        @media (hover: hover) {
+            .btn-inicio:hover {
+                background-color: white;
+                color: #764ba2;
+                transform: scale(1.05);
+            }
+        }
+        .btn-inicio:active {
+            transform: scale(0.95);
+        }
 
         .contenedor {
-            background-color: white;
+            background-color: var(--bg-contenedor);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
             max-width: 350px;
             width: 100%;
+            box-sizing: border-box;
+            /* Transición suave para el cuadro de la calculadora */
+            transition: background-color 0.5s ease-in-out;
         }
 
         h1 {
-            color: #4a4a4a;
+            color: var(--color-titulo);
             margin-bottom: 20px;
             font-size: 24px;
+            transition: color 0.5s ease-in-out;
         }
 
         input {
-            width: 80%;
+            width: 100%;
             padding: 12px;
             margin: 10px 0;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--color-borde);
             border-radius: 10px;
             outline: none;
             font-size: 16px;
-            transition: border-color 0.3s;
+            background-color: var(--bg-contenedor);
+            color: var(--color-input);
+            box-sizing: border-box;
+            transition: border-color 0.3s, background-color 0.5s, color 0.5s;
         }
 
         input:focus {
-            border-color: #764ba2;
+            border-color: #00d2ff;
         }
 
         .botones {
@@ -95,41 +123,62 @@
             transition: all 0.2s;
         }
 
-        button:hover {
-            background-color: #5a377d;
-            transform: translateY(-2px);
+        @media (hover: hover) {
+            button:hover {
+                background-color: #5a377d;
+                transform: translateY(-2px);
+            }
+        }
+        button:active {
+            transform: scale(0.95);
         }
 
         button.limpiar {
             background-color: #ff4757;
-            grid-column: span 2; /* Ocupa las dos columnas */
+            grid-column: span 2;
             margin-top: 5px;
         }
 
-        button.limpiar:hover {
-            background-color: #ff1f33;
+        @media (hover: hover) {
+            button.limpiar:hover {
+                background-color: #ff1f33;
+            }
         }
 
         #resultado-caja {
             margin-top: 25px;
             padding: 15px;
-            background-color: #f8f9fa;
+            background-color: var(--bg-resultado);
             border-radius: 10px;
+            transition: background-color 0.5s ease-in-out;
         }
 
         #resultado {
             font-size: 20px;
             font-weight: bold;
-            color: #2f3542;
+            color: var(--color-texto);
             margin: 0;
+            transition: color 0.5s ease-in-out;
+        }
+
+        /* Ajuste móvil inteligente para el botón de modo oscuro */
+        @media (hover: hover) {
+            .btn-toggle:hover {
+                background: white !important;
+                transform: scale(1.1) rotate(30deg);
+            }
+        }
+        .btn-toggle:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.4) !important;
         }
     </style>
 </head>
 <body>
     <a href="index.html" class="btn-inicio">🏠 Ir a Inicio</a>
 
-    <!-- El mismo botón en la calculadora -->
-<button class="btn-toggle" onclick="toggleDarkMode()" style="position: fixed; top: 20px; right: 20px; cursor: pointer; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; padding: 10px; font-size: 20px;">🌓</button>
+    <!-- Añadida la id="theme-icon" para cambiar el emoji -->
+    <button id="theme-icon" class="btn-toggle" onclick="toggleDarkMode()" style="position: fixed; top: 20px; right: 20px; cursor: pointer; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; padding: 12px; font-size: 20px; transition: 0.3s; z-index: 10;">Subiendo...</button>
 
     <div class="contenedor">
         <h1>🔢 Mi Calculadora</h1>
@@ -150,6 +199,7 @@
         </div>
     </div>
 
+    <!-- Carga los scripts ordenados -->
     <script src="js/calculadora.js"></script>
     <script src="js/modo-oscuro.js"></script>
 
