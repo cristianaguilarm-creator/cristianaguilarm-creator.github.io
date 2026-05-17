@@ -134,8 +134,13 @@
             <div class="nivel-contenido">
                 <h3>🔢 Números y Operaciones</h3>
                 <p><b>Suma y Resta:</b> Juntar o quitar elementos.</p>
+                <span class="formula">1+1 = 2 y 1-1 = 0</span>
                 <p><b>Tablas de Multiplicar:</b> Sumas iteradas (repetidas).</p>
+                <span class="formula">2*4 → 2+2+2+2 = 8</span>
                 <p><b>Fracciones Básicas:</b> Partir un entero en trozos iguales (Ej: 1/2 naranja).</p>
+                <span class="formula">1/2→ se busca en la tabla de multiplicación el número correspondiente, si hay una cantidad menor a la división se pone un cero(0) seguido por una coma, y al número que no se pudo dividir a la primera, se le agrega un cero(0) a la parte derecha. 
+                    Eje:1/2=0,5 el 1 es dividido por 2 y como en la tabla del 2 no hay ningún 1, se pone un 0 seguido por una coma, al 1 se le pone un 0 al lado derecho, quedando un 10 y en la tabla del 2 si hay un 10 específicamente el 2*5. 
+                    poniendo el 5 después del 0 y la coma, quedando el resultado de 0,5.</span>
             </div>
         </div>
 
@@ -198,10 +203,7 @@
             const span = elemento.querySelector('span');
             span.innerText = contenido.classList.contains('abierto') ? '▲' : '▼';
         }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
     </script>
+    <script class="js/modo-oscuro.js"></script>
 </body>
 </html>
