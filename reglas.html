@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reglas Matemáticas</title>
     <style>
-      .Reglas
+      :root {
+            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --texto: white;
+            --accent: #00d2ff;
+        }
+
+        /* 2. Variables alternativas cuando se activa el modo oscuro */
+        .dark-mode {
+            --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --bg-card: rgba(0, 0, 0, 0.5);
+        }
+      .Reglas {
+        ...
+      }
     </style>
   </head>
   <body>
