@@ -7,24 +7,428 @@
     <style>
       :root {
             --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --bg-card: rgba(255, 255, 255, 0.1);
-            --texto: white;
-            --accent: #00d2ff;
+            --bg-card: rgba(255, 255, 255, 0.18);
+            --texto: #f4f7ff;
+            --texto-secundario: #dce4ff;
+            --accent: #7bdcff;
+            --border: rgba(255, 255, 255, 0.18);
+            --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
         }
 
-        /* 2. Variables alternativas cuando se activa el modo oscuro */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg-gradiente);
+            color: var(--texto);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
         .dark-mode {
             --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            --bg-card: rgba(0, 0, 0, 0.5);
+            --bg-card: rgba(20, 24, 48, 0.9);
+            --texto: #f2f5ff;
+            --texto-secundario: #c8d1ff;
+            --accent: #5bdcff;
+            --border: rgba(255, 255, 255, 0.12);
+            --card-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
         }
-      .Reglas {
-        ...
-      }
+
+        .Reglas {
+            width: min(1100px, 100%);
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .Reglas h1 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: clamp(2rem, 2.5vw, 3rem);
+            letter-spacing: 0.03em;
+        }
+
+        .Reglas section {
+            margin-bottom: 1.75rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .Reglas h2 {
+            margin: 0 0 0.85rem;
+            font-size: 1.35rem;
+            color: var(--accent);
+        }
+
+        .Reglas ul {
+            margin: 0 0 1rem;
+            padding-left: 1.4rem;
+            color: var(--texto-secundario);
+            line-height: 1.75;
+        }
+
+        .Reglas li {
+            margin-bottom: 0.55rem;
+        }
+
+        .ejemplo {
+            background: rgba(0, 0, 0, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        .ejemplo strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+            font-size: 0.98rem;
+        }
+
+        .ejemplo ul {
+            margin: 0;
+            padding-left: 1.1rem;
+        }
+
+        .ejemplo li {
+            margin-bottom: 0.45rem;
+            color: var(--texto);
+        }
+
+        .btn-toggle {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--texto);
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-toggle:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 850px) {
+            .Reglas {
+                padding: 1.75rem;
+            }
+
+            .Reglas section {
+                padding: 1rem 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .Reglas {
+                border-radius: 1.2rem;
+                padding: 1.5rem;
+            }
+
+            .btn-toggle {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.7rem 0.9rem;
+            }
+        }
     </style>
   </head>
   <body>
-    <button class="btn-toggle" onclick="toggleDarkMode()">🌓</button>
-    <p>Reglas:<br>...<br>...<br>...<br>...<br>...</p>
+    <button id="theme-icon" class="btn-toggle" onclick="toggleDarkMode()">🌓</button>
+    <div class="Reglas">
+        <h1>Reglas Matemáticas</h1>
+        <section>
+            <h2>Suma</h2>
+            <ul>
+                <li>Conmutativa: a + b = b + a</li>
+                <li>Asociativa: (a + b) + c = a + (b + c)</li>
+                <li>Elemento neutro: a + 0 = a</li>
+                <li>Inverso aditivo: a + (-a) = 0</li>
+                <li>Suma de matrices: A + B es posible si tienen la misma dimensión.</li>
+                <li>Suma de series: Σ (aₙ + bₙ) = Σ aₙ + Σ bₙ</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de suma:</strong>
+                <ul>
+                    <li>Conmutativa: 2 + 3 o 3 + 2 => 5</li>
+                    <li>Asociativa: (1 + 2) + 3 = 1 + (2 + 3) = 6</li>
+                    <li>Elemento neutro: 7 + 0 = 7</li>
+                    <li>Inverso aditivo: 5 + (-5) = 0</li>
+                    <li>Suma de matrices: [1 2] + [3 4] = [4 6]</li>
+                    <li>Suma de series: Σ(1 + 2) = Σ1 + Σ2</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Resta</h2>
+            <ul>
+                <li>Resta inversa de la suma: a - b = a + (-b)</li>
+                <li>No es conmutativa: a - b ≠ b - a</li>
+                <li>Resta de cero: a - 0 = a</li>
+                <li>Resta de polinomios: se restan coeficientes de términos semejantes.</li>
+                <li>Resta de vectores: u - v = u + (-v)</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de resta:</strong>
+                <ul>
+                    <li>Inversa de suma: 8 - 3 = 8 + (-3) = 5</li>
+                    <li>No conmutativa: 8 - 3 = 5, pero 3 - 8 = -5</li>
+                    <li>Resta de cero: 9 - 0 = 9</li>
+                    <li>Polinomios: (x²+3x) - (x²-x) = 4x</li>
+                    <li>Vectores: (2, 5) - (1, 3) = (1, 2)</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Multiplicación</h2>
+            <ul>
+                <li>Conmutativa: a · b = b · a</li>
+                <li>Asociativa: (a · b) · c = a · (b · c)</li>
+                <li>Elemento neutro: a · 1 = a</li>
+                <li>Distributiva sobre suma: a · (b + c) = a·b + a·c</li>
+                <li>Producto escalar: u·v = |u| |v| cos(θ)</li>
+                <li>Producto de matrices: AB existe si columnas de A = filas de B.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de multiplicación:</strong>
+                <ul>
+                    <li>Conmutativa: 3·4 o 4·3 = 12</li>
+                    <li>Asociativa: (2·3)·4 = 2·(3·4) = 24</li>
+                    <li>Elemento neutro: 5·1 = 5</li>
+                    <li>Distributiva: 2·(3+4) = 2·3 + 2·4 = 14</li>
+                    <li>Escalar: (2,0)·(0,3) = 6·cos(90°) = 0</li>
+                    <li>Matrices: [1 2]·[3;4] = [11]</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>División</h2>
+            <ul>
+                <li>a ÷ b = a · (1/b), siempre que b ≠ 0</li>
+                <li>No es conmutativa: a ÷ b ≠ b ÷ a</li>
+                <li>División entre 1: a ÷ 1 = a</li>
+                <li>Fracción algebraica: (a/b) ÷ (c/d) = (a/b) · (d/c)</li>
+                <li>División sintética: método rápido para dividir polinomios.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de división:</strong>
+                <ul>
+                    <li>Inversa: 6 ÷ 2 = 6 · 1/2 = 3</li>
+                    <li>No conmutativa: 6 ÷ 2 = 3 y 2 ÷ 6 = 1/3</li>
+                    <li>División por 1: 7 ÷ 1 = 7</li>
+                    <li>Fracción algebraica: (x/2) ÷ (3/x) = x²/6</li>
+                    <li>Sintética: dividir x²+3x+2 entre x+1 da x+2</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Potencias</h2>
+            <ul>
+                <li>a⁰ = 1 cuando a ≠ 0</li>
+                <li>a¹ = a</li>
+                <li>a^{m} · a^{n} = a^{m+n}</li>
+                <li>(a^{m})^{n} = a^{m·n}</li>
+                <li>(a·b)^{n} = a^{n} · b^{n}</li>
+                <li>a^{-n} = 1/a^{n}</li>
+                <li>a^{p/q} = <span style="white-space: nowrap;">q√(a^{p})</span>, cuando a ≥ 0</li>
+                <li>Regla de los logaritmos: log(a^{b}) = b · log(a)</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de potencias:</strong>
+                <ul>
+                    <li>a⁰: 5⁰ = 1</li>
+                    <li>a¹: 7¹ = 7</li>
+                    <li>a^{m}·a^{n}: 2²·2³ = 2⁵ = 32</li>
+                    <li>(a^{m})^{n}: (2²)³ = 2⁶ = 64</li>
+                    <li>(a·b)^{n}: (2·3)² = 6² = 36 = 2²·3²</li>
+                    <li>a^{-n}: 2^{-3} = 1/8</li>
+                    <li>a^{p/q}: 8^{2/3} = 4</li>
+                    <li>Logaritmos: log(2³) = 3·log 2</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Polinomios</h2>
+            <ul>
+                <li>Un polinomio es una suma de términos con potencias enteras no negativas.</li>
+                <li>Clasificación por grado: grado 0 (constante), grado 1 (lineal), grado 2 (cuadrático), etc.</li>
+                <li>Suma y resta de polinomios: se combinan términos semejantes.</li>
+                <li>Multiplicación: se multiplica cada término de un polinomio por cada término del otro.</li>
+                <li>Factorización: extracción de factor común, productos notables, trinomio cuadrado perfecto, diferencia de cuadrados.</li>
+                <li>Teorema Fundamental del Álgebra: un polinomio de grado n tiene n raíces complejas contadas con multiplicidad.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de polinomios:</strong>
+                <ul>
+                    <li>Definición: x² + 3x + 2</li>
+                    <li>Grado: x² + 1 es grado 2</li>
+                    <li>Suma: (x²+2x)+(x²-x)=2x²+x</li>
+                    <li>Multiplicación: (x+1)(x+2)=x²+3x+2</li>
+                    <li>Factorización: x²-1=(x-1)(x+1)</li>
+                    <li>Teorema Fundamental: x²-1 tiene raíces ±1</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Operaciones combinadas</h2>
+            <ul>
+                <li>Orden de operaciones: primero paréntesis, luego exponentes, después multiplicación y división, y al final suma y resta.</li>
+                <li>PEMDAS en inglés o «PEMDAS» equivalente en español.</li>
+                <li>Si hay paréntesis dentro de paréntesis, resuelve de adentro hacia afuera.</li>
+                <li>Para expresiones con radicales y fracciones, normaliza primero si es posible.</li>
+                <li>Para polinomios, aplica el mismo orden a cada término y combina términos semejantes al final.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de operaciones combinadas:</strong>
+                <ul>
+                    <li>Orden: 2 + 3·4 = 2 + 12 = 14</li>
+                    <li>Exponentes: 2 + 3² = 2 + 9 = 11</li>
+                    <li>Paréntesis: (2 + 3)·4 = 20</li>
+                    <li>Dentro de paréntesis: (1 + (2 + 3))·2 = 12</li>
+                    <li>Polinomios: (x + 3m)² + (3m + x)(3m - x)</li>
+                    <li>Radicales: 2 + √9 = 5</li>
+                    <li>Fracciones: 1 + 2/3 = 5/3</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Geometría</h2>
+            <ul>
+                <li>Área del rectángulo: base · altura</li>
+                <li>Área del triángulo: (base · altura) / 2</li>
+                <li>Área del trapecio: (base mayor + base menor) · altura / 2</li>
+                <li>Perímetro del círculo: 2 · π · radio</li>
+                <li>Área del círculo: π · radio²</li>
+                <li>Volumen del prisma: área de la base · altura</li>
+                <li>Volumen del cilindro: π · radio² · altura</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de geometría:</strong>
+                <ul>
+                    <li>Rectángulo: 5·2 = 10</li>
+                    <li>Triángulo: (4·3)/2 = 6</li>
+                    <li>Trapecio: (5+3)·2/2 = 8</li>
+                    <li>Perímetro círculo: 2π·3 ≈ 18.85</li>
+                    <li>Área círculo: π·3² = 28.27</li>
+                    <li>Volumen prisma: 6·4 = 24</li>
+                    <li>Volumen cilindro: π·2²·5 ≈ 62.83</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Trigonometría</h2>
+            <ul>
+                <li>Seno: sin(α) = cateto opuesto / hipotenusa</li>
+                <li>Coseno: cos(α) = cateto adyacente / hipotenusa</li>
+                <li>Tangente: tan(α) = sen(α) / cos(α)</li>
+                <li>Identidades básicas: sin²(α)+cos²(α)=1</li>
+                <li>Fórmulas de ángulo doble: sin(2α) = 2 sinα cosα</li>
+                <li>Fórmulas de suma y diferencia: sin(a ± b) = sin a cos b ± cos a sin b</li>
+                <li>Relaciones trigonométricas en el círculo unitario y funciones inversas.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de trigonometría:</strong>
+                <ul>
+                    <li>sin(30°)=1/2</li>
+                    <li>cos(60°)=1/2</li>
+                    <li>tan(45°)=1</li>
+                    <li>Identidad: sin²30°+cos²30°=1</li>
+                    <li>Ángulo doble: sin(2·30°)=sin60°=√3/2</li>
+                    <li>Suma: sin(30°+60°)=sin30°cos60°+cos30°sin60°</li>
+                    <li>Círculo unitario: punto (cosθ, sinθ)</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Álgebra</h2>
+            <ul>
+                <li>Resolver ecuaciones consiste en despejar la incógnita usando operaciones inversas.</li>
+                <li>Multiplicar o dividir ambos lados de una ecuación por el mismo número mantiene la igualdad.</li>
+                <li>Suma o resta el mismo valor en ambos lados para simplificar la ecuación.</li>
+                <li>Ecuación cuadrática: ax² + bx + c = 0 y fórmula general x = (-b ± √(b²-4ac)) / (2a).</li>
+                <li>Sistemas de ecuaciones: usar sustitución, eliminación o matrices.</li>
+                <li>Matrices: operaciones de suma, multiplicación, determinante y transpuesta.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de álgebra:</strong>
+                <ul>
+                    <li>Despejar: 2x+3=7 → x=2</li>
+                    <li>Multiplicar ambos lados: x/2=3 → x=6</li>
+                    <li>Sumar ambos lados: x-4=5 → x=9</li>
+                    <li>Cuadrática: x²-5x+6=0 → x=2, 3</li>
+                    <li>Sistema: x+y=3, x-y=1 → x=2, y=1</li>
+                    <li>Matrices: [1 2]+[3 4]=[4 6]</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Expresiones algebraicas</h2>
+            <ul>
+                <li>Una expresión algebraica puede incluir números, letras y operaciones.</li>
+                <li>Término semejante: misma variable con el mismo exponente.</li>
+                <li>Para simplificar, combina términos semejantes y aplica las propiedades de las operaciones.</li>
+                <li>Productos notables: (a+b)² = a² + 2ab + b², (a-b)² = a² - 2ab + b², (a+b)(a-b) = a² - b².</li>
+                <li>Racionalizar fracciones: eliminar raíces del denominador mediante multiplicación adecuada.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de expresiones algebraicas:</strong>
+                <ul>
+                    <li>Expresión: 2x + 3</li>
+                    <li>Términos semejantes: 2x + 3x = 5x</li>
+                    <li>Simplificar: 4x + 2x - x = 5x</li>
+                    <li>Producto notable: (x+1)² = x²+2x+1</li>
+                    <li>Producto notable: (x-1)(x+1)=x²-1</li>
+                    <li>Racionalizar: 1/√2 · √2/√2 = √2/2</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Cálculo básico</h2>
+            <ul>
+                <li>Límite: limₓ→a f(x) = L cuando los valores de f(x) se acercan a L al acercarse x a a.</li>
+                <li>Derivada: f'(x) = limₕ→0 [f(x+h)-f(x)] / h</li>
+                <li>Regla de la cadena: (f(g(x)))' = f'(g(x)) · g'(x)</li>
+                <li>Regla del producto: (uv)' = u'v + uv'</li>
+                <li>Regla del cociente: (u/v)' = (u'v - uv') / v²</li>
+                <li>Integral indefinida: ∫ f(x) dx = F(x) + C, donde F' = f.</li>
+            </ul>
+            <div class="ejemplo">
+                <strong>Ejemplos de cálculo:</strong>
+                <ul>
+                    <li>Límite: limₓ→2 (x²-4)/(x-2) = 4</li>
+                    <li>Derivada: d/dx(x²)=2x</li>
+                    <li>Cadena: d/dx(sin(x²))=cos(x²)·2x</li>
+                    <li>Producto: d/dx(x²·x)=2x·x + x²·1</li>
+                    <li>Cociente: d/dx((x²)/(x+1))=(2x(x+1)-x²·1)/(x+1)²</li>
+                    <li>Integral: ∫2x dx = x² + C</li>
+                </ul>
+            </div>
+        </section>
+    </div>
     <script src="js/modo-oscuro.js"></script>
   </body>
 </html>
