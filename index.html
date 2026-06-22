@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de aprendizaje de matemáticas!</title>
-    <style>
        <style>
         /* 1. CAPA DE PARTÍCULAS (Agregada al inicio) */
         #particles-js {
@@ -21,15 +20,14 @@
             z-index: 5 !important; 
         }
 
-        /* 2. Definimos las variables para el modo claro */
+        /* 2. Definimos las variables para el modo claro (Azul Tecnológico) */
         :root {
-            /* MODIFICACIÓN: Gradiente azul tecnológico para modo día por defecto */
             --bg-gradiente: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
             --bg-bienvenida: rgba(255, 255, 255, 0.02);
         }
 
-        /* 2. Variables alternativas cuando se activa el modo oscuro */
-        .dark-mode {
+        /* 3. Variables alternativas cuando se activa el modo oscuro (Espacial Morado) */
+        body.dark-mode {
             --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             --bg-bienvenida: rgba(15, 23, 42, 0.15);
         }
@@ -52,7 +50,7 @@
         .bienvenida {
             background-color: var(--bg-bienvenida) !important; /* Usa la variable de la tarjeta */
             padding: 40px;
-            border-radius: 24px; /* Bordes un poco más orgánicos */
+            border-radius: 24px; 
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
             border: 1px solid rgba(255, 255, 255, 0.25) !important;
@@ -63,7 +61,7 @@
             transition: background-color 0.5s ease-in-out;
         }
         
-        .dark-mode .bienvenida {
+        body.dark-mode .bienvenida {
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.12) !important;
         }
@@ -85,7 +83,7 @@
         .botonera {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Separa los botones entre sí */
+            gap: 15px; 
         }
 
         .boton-menu {
@@ -112,13 +110,13 @@
         }
 
         .boton-juego {
-            background: #ff9f43 !important; /* Naranja llamativo */
+            background: #ff9f43 !important; 
             border: none !important;
         }
 
         .boton-juego:hover {
             background: #ff7f11 !important;
-            transform: scale(1.1) rotate(2deg); /* Un pequeño giro para que se vea divertido */
+            transform: scale(1.1) rotate(2deg); 
         }
 
         /* Estilo especial para el botón principal */
@@ -150,30 +148,30 @@
 
         /* ESTILOS DEL BOTÓN VOLVER */
         .boton-volver-estilo {
-            display: none; /* Inicia oculto por defecto */
-            background-color: rgba(255, 255, 255, 0.1) !important; /* Fondo más transparente */
+            display: none; 
+            background-color: rgba(255, 255, 255, 0.1) !important; 
             color: white !important;
             border: 1px solid rgba(255, 255, 255, 0.25) !important;
             padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 12px; /* Bordes redondeados como tus otros botones */
+            border-radius: 12px; 
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 25px; /* Separación con el título de abajo */
+            margin-bottom: 25px; 
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
             backdrop-filter: blur(5px);
         }
                 
-        /* Efecto cuando pasas el mouse por encima */
         .boton-volver-estilo:hover {
             background-color: white !important;
-            color: #0284c7 !important; /* Cambia al tono azul del fondo de tu web */
-            transform: scale(1.05); /* Se agranda un poquito */
+            color: #0284c7 !important; 
+            transform: scale(1.05); 
         }
     </style>
+
 </head>
 <body>
     <div id="particles-js"></div>
