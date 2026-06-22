@@ -118,12 +118,33 @@
     background: rgba(255, 255, 255, 0.4) !important;
             }
     </style>
+    <style>
+  .boton-volver-estilo {
+    display: none; /* Inicia oculto por defecto */
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 12px; /* Bordes redondeados como tus otros botones */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px; /* Separación con el contenido de abajo */
+  }
+        
+  /* Efecto cuando pasas el mouse por encima */
+  .boton-volver-estilo:hover {
+    background-color: white;
+    color: #4a148c; /* Cambia el texto a morado al pasar el mouse */
+    transform: scale(1.05); /* Se agranda un poquito */
+  }
+</style>
 </head>
 <body>
-    <button id="btnVolver" style="display: none;" onclick="window.history.back()">
-  Volver
+    <button id="btnVolver" class="boton-volver-estilo" onclick="window.history.back()">
+        ⬅️ Volver
     </button>
-
     
     <!-- Botón flotante para activar el modo oscuro (Le añadimos la id "theme-icon" para cambiar el emoji) -->
     <button id="theme-icon" class="btn-toggle" onclick="toggleDarkMode()" style="position: fixed; top: 20px; right: 20px; cursor: pointer; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; padding: 12px; font-size: 20px; transition: 0.3s;">🌓</button>
