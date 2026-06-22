@@ -120,6 +120,10 @@
     </style>
 </head>
 <body>
+    <button id="btnVolver" style="display: none;" onclick="window.history.back()">
+  Volver
+    </button>
+
     
     <!-- Botón flotante para activar el modo oscuro (Le añadimos la id "theme-icon" para cambiar el emoji) -->
     <button id="theme-icon" class="btn-toggle" onclick="toggleDarkMode()" style="position: fixed; top: 20px; right: 20px; cursor: pointer; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; padding: 12px; font-size: 20px; transition: 0.3s;">🌓</button>
@@ -156,5 +160,18 @@
 
     <!-- Vinculación al archivo dentro de la carpeta js -->
     <script src="js/modo-oscuro.js"></script>
+    <!-- El botón inicia oculto con display: none -->
+
+<script>
+  // Página :D
+  const paginaOrigenEsperada = "https://cristian2024-ops.github.io/index.html";
+
+  // Verificamos si el usuario viene de esa página específica
+  if (document.referrer === paginaOrigenEsperada) {
+    // Si coincide, mostramos el botón
+    document.getElementById("btnVolver").style.display = "block";
+  }
+</script>
+
 </body>
 </html>
