@@ -163,17 +163,13 @@
     <!-- El botón inicia oculto con display: none -->
 
 <script>
-  // Imprime en la consola el origen real para que lo puedas ver
-  console.log("La página de origen detectada es: " + document.referrer);
+  // Detecta el origen real que vimos en tu captura
+  const origenReal = document.referrer.toLowerCase();
 
-  // La URL de prueba (asegúrate de que termine en / si corresponde)
-  const paginaOrigenEsperada = "https://cristian2024-ops.github.io/";
-
-  // Usamos .includes() para que sea más flexible si cambian las mayúsculas o barras
-  if (document.referrer.toLowerCase().includes("juegos.github.io")) {
+  // Si viene de tu página principal, mostramos el botón
+  if (origenReal.includes("cristian2024-ops.github.io")) {
     document.getElementById("btnVolver").style.display = "block";
   }
 </script>
-
 </body>
 </html>
