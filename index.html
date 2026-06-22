@@ -215,7 +215,41 @@
 
     <!-- Vinculación al archivo dentro de la carpeta js -->
     <script src="js/modo-oscuro.js"></script>
+        <!-- 1. Enlace a tu librería local que ya pesa 22.8 kB con éxito -->
     <script src="js/particles.min.js"></script>
+    <script>
+        // 2. Configuración de la red de partículas de alta visibilidad
+        function cargarParticulas(colorParticula) {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 65, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": colorParticula },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.7, "random": false },
+                    "size": { "value": 4.5, "random": true },
+                    "line_linked": { 
+                        "enable": true, 
+                        "distance": 140, 
+                        "color": colorParticula, 
+                        "opacity": 0.4, 
+                        "width": 1.5 
+                    },
+                    "move": { "enable": true, "speed": 2.2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                }
+            });
+        }
+
+        // 3. Activación inmediata en color blanco para que contrasten genial
+        cargarParticulas("#ffffff");
+
+        // 4. Sincronización automática con tu botón de la luna/sol
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('theme-icon')?.addEventListener('click', () => {
+                setTimeout(() => cargarParticulas("#ffffff"), 50);
+            });
+        });
+    </script>
+
 
     <!-- Lógica de detección -->
     <script>
