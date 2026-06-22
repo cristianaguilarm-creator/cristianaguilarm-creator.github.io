@@ -5,21 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de aprendizaje de matemáticas!</title>
     <style>
-        /* 1. Definimos las variables para el modo claro */
+       <style>
+        /* 1. CAPA DE PARTÍCULAS (Agregada al inicio) */
+        #particles-js {
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+        }
+        .bienvenida, #theme-icon, #btnVolver { 
+            position: relative !important; 
+            z-index: 5 !important; 
+        }
+
+        /* 2. Definimos las variables para el modo claro */
         :root {
-            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --bg-bienvenida: rgba(255, 255, 255, 0.1);
+            /* MODIFICACIÓN: Gradiente azul tecnológico para modo día por defecto */
+            --bg-gradiente: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            --bg-bienvenida: rgba(255, 255, 255, 0.02);
         }
 
         /* 2. Variables alternativas cuando se activa el modo oscuro */
         .dark-mode {
             --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            --bg-bienvenida: rgba(0, 0, 0, 0.4);
+            --bg-bienvenida: rgba(15, 23, 42, 0.15);
         }
 
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: var(--bg-gradiente); /* Usa la variable de fondo */
+            background: var(--bg-gradiente) !important; /* Usa la variable de fondo */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,30 +46,39 @@
             text-align: center;
             /* Transición suave para el cambio de fondo gradual */
             transition: background 0.5s ease-in-out;
+            overflow: hidden;
         }
 
         .bienvenida {
-            background-color: var(--bg-bienvenida); /* Usa la variable de la tarjeta */
+            background-color: var(--bg-bienvenida) !important; /* Usa la variable de la tarjeta */
             padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px; /* Bordes un poco más orgánicos */
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 45px rgba(2, 132, 199, 0.2);
             /* Transición suave para el cambio de la tarjeta */
             transition: background-color 0.5s ease-in-out;
+        }
+        
+        .dark-mode .bienvenida {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         p {
             font-size: 1.1rem;
             margin-bottom: 30px;
-            opacity: 0.9;
+            opacity: 0.95;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         /* --- CONTENEDOR DE LOS BOTONES --- */
@@ -65,43 +91,47 @@
         .boton-menu {
             display: block;
             padding: 15px 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
+            background-color: rgba(255, 255, 255, 0.06) !important;
+            color: white !important;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-weight: bold;
             font-size: 1.1rem;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
 
         /* Efecto al pasar el mouse por encima */
         .boton-menu:hover {
             transform: translateY(-3px);
-            background-color: white;
-            color: #764ba2;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .boton-juego {
-            background-color: #ff9f43 !important; /* Naranja llamativo */
+            background: #ff9f43 !important; /* Naranja llamativo */
             border: none !important;
         }
 
         .boton-juego:hover {
-            background-color: #ff7f11 !important;
+            background: #ff7f11 !important;
             transform: scale(1.1) rotate(2deg); /* Un pequeño giro para que se vea divertido */
         }
 
         /* Estilo especial para el botón principal */
         .boton-principal {
-            background-color: #00d2ff;
-            border: none;
+            background: linear-gradient(135deg, #00d2ff 0%, #00bcff 100%) !important;
+            border: none !important;
+            box-shadow: 0 6px 15px rgba(0, 210, 255, 0.25);
         }
 
         .boton-principal:hover {
-            background-color: #00bcff;
-            color: white;
+            background: linear-gradient(135deg, #00bcff 0%, #00a0ff 100%) !important;
+            color: white !important;
+            box-shadow: 0 12px 25px rgba(0, 210, 255, 0.4);
         }
 
         /* Este efecto de giro SOLO se activará en computadoras con mouse */
@@ -121,9 +151,9 @@
         /* ESTILOS DEL BOTÓN VOLVER */
         .boton-volver-estilo {
             display: none; /* Inicia oculto por defecto */
-            background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
-            color: white;
-            border: 2px solid white;
+            background-color: rgba(255, 255, 255, 0.1) !important; /* Fondo más transparente */
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
             padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
@@ -134,12 +164,13 @@
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
+            backdrop-filter: blur(5px);
         }
                 
         /* Efecto cuando pasas el mouse por encima */
         .boton-volver-estilo:hover {
-            background-color: white;
-            color: #764ba2; /* Cambia al tono morado de tu web */
+            background-color: white !important;
+            color: #0284c7 !important; /* Cambia al tono azul del fondo de tu web */
             transform: scale(1.05); /* Se agranda un poquito */
         }
     </style>
