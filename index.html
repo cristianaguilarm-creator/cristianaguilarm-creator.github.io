@@ -47,24 +47,28 @@
             overflow: hidden;
         }
 
+                /* CORRECCIÓN: Tarjeta ultra transparente estilo cristal */
         .bienvenida {
-            background-color: var(--bg-bienvenida) !important; /* Usa la variable de la tarjeta */
+            /* Fondo plano casi invisible (3% de blanco) para ver pasar las partículas */
+            background: rgba(255, 255, 255, 0.03) !important; 
             padding: 40px;
             border-radius: 24px; 
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
+            backdrop-filter: blur(12px) !important; /* Desenfoque sutil estilo cristal */
+            -webkit-backdrop-filter: blur(12px) !important;
             border: 1px solid rgba(255, 255, 255, 0.25) !important;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 20px 45px rgba(2, 132, 199, 0.2);
-            /* Transición suave para el cambio de la tarjeta */
+            box-shadow: 0 20px 45px rgba(2, 132, 199, 0.15);
             transition: background-color 0.5s ease-in-out;
         }
         
+        /* CORRECCIÓN: Transparencia oscura adaptada para cuando activas el modo noche */
         body.dark-mode .bienvenida {
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            background: rgba(15, 23, 42, 0.15) !important; 
             border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
+
 
         h1 {
             font-size: 2.5rem;
