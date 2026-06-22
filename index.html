@@ -163,12 +163,14 @@
     <!-- El botón inicia oculto con display: none -->
 
 <script>
-  // Página :D
+  // Imprime en la consola el origen real para que lo puedas ver
+  console.log("La página de origen detectada es: " + document.referrer);
+
+  // La URL de prueba (asegúrate de que termine en / si corresponde)
   const paginaOrigenEsperada = "https://cristian2024-ops.github.io/";
 
-  // Verificamos si el usuario viene de esa página específica
-  if (document.referrer === paginaOrigenEsperada) {
-    // Si coincide, mostramos el botón
+  // Usamos .includes() para que sea más flexible si cambian las mayúsculas o barras
+  if (document.referrer.toLowerCase().includes("juegos.github.io")) {
     document.getElementById("btnVolver").style.display = "block";
   }
 </script>
