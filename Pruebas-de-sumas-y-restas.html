@@ -5,119 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desafío 100 Puntos: Sumas y Restas</title>
     <style>
-        /* --- ESTILOS GENERALES --- */
+        /* 1. CAPA DE PARTÍCULAS (Fondo fijo) */
+        #particles-js {
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+        }
+
+        /* Forzamos a que la tarjeta quede por encima de las partículas */
+        .card { 
+            position: relative !important; 
+            z-index: 5 !important; 
+        }
+
+        /* 2. Definimos las variables para el modo claro */
+        :root {
+            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-tarjeta: rgba(255, 255, 255, 0.08);
+            --bg-caja-pregunta: rgba(255, 255, 255, 0.1);
+            --borde-cristal: rgba(255, 255, 255, 0.25);
+            --texto: white;
+            --texto-input: #ffffff;
+            --bg-input: rgba(0, 0, 0, 0.2);
+        }
+
+        /* 3. Variables alternativas para modo oscuro */
+        body.dark-mode {
+            --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --bg-tarjeta: rgba(15, 23, 42, 0.2);
+            --bg-caja-pregunta: rgba(0, 0, 0, 0.25);
+            --borde-cristal: rgba(255, 255, 255, 0.12);
+            --bg-input: rgba(0, 0, 0, 0.4);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-gradiente) !important;
             display: flex; 
             justify-content: center; 
             align-items: center;
-            height: 100vh; 
+            min-height: 100vh; 
             margin: 0; 
-            transition: 0.5s;
+            color: var(--texto);
+            transition: background 0.5s ease-in-out;
         }
 
-        .dark-mode { 
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important; 
-        }
-
-        /* --- BOTONES DE LAS ESQUINAS --- */
-        .btn-esquina {
-            position: fixed; 
-            top: 20px; 
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.2);
-            color: white; 
-            text-decoration: none; 
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(5px); 
-            transition: 0.3s;
-            display: flex; 
-            justify-content: center; 
+        /* --- BOTONES SUPERIORES FLOTANTES (Estilo Unificado) --- */
+        .btn-flotante {
+            position: fixed;
+            top: 20px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            z-index: 100;
+            font-weight: 500;
+            font-size: 0.95rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
             align-items: center;
-        }
-        .btn-esquina:hover { 
-            background: white; 
-            color: #764ba2; 
-            transform: scale(1.05); 
+            justify-content: center;
+            text-decoration: none;
         }
 
-        .btn-izquierdo { 
-            left: 20px; 
-            padding: 8px 15px; 
-            border-radius: 8px; 
-            font-size: 14px; 
-            font-weight: bold; 
-        }
-        .btn-derecho { 
-            right: 20px; 
-            width: 35px; 
-            height: 35px; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            font-size: 18px; 
-            border: none;
-        }
+        .left-btn { left: 20px; }
+        .right-btn { right: 20px; min-width: 45px; }
 
-        /* --- TARJETA PRINCIPAL --- */
+        @media (hover: hover) {
+            .btn-flotante:hover { 
+                background: rgba(255, 255, 255, 0.25); 
+                border-color: rgba(255, 255, 255, 0.4);
+                transform: translateY(-2px);
+            }
+        }
+        .btn-flotante:active { transform: translateY(1px); background: rgba(255,255,255,0.05); }
+
+        /* --- TARJETA PRINCIPAL EN CRISTAL (Glassmorphism) --- */
         .card { 
-            background: white; 
-            padding: 2rem; 
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-            width: 350px; 
+            background: var(--bg-tarjeta) !important; 
+            padding: 2.5rem; 
+            border-radius: 25px;
+            backdrop-filter: blur(15px) !important;
+            -webkit-backdrop-filter: blur(15px) !important;
+            border: 1px solid var(--borde-cristal) !important;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
+            width: 360px; 
             text-align: center;
+            animation: aparecer 0.6s ease-out;
         }
-        .dark-mode .card { 
-            background: #1e1e1e; 
-            color: white; 
-            border: 1px solid rgba(255,255,255,0.1);
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .pregunta-box {
-            background: #f8f9fa; 
-            padding: 15px; 
-            border-radius: 10px;
-            margin-bottom: 15px; 
-            border: 1px solid #eee;
-        }
-        .dark-mode .pregunta-box { 
-            background: #2d2d2d; 
-            border: none; 
+            background: var(--bg-caja-pregunta) !important; 
+            padding: 18px; 
+            border-radius: 15px;
+            margin-bottom: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* --- INPUTS Y BOTONES DE ACCIÓN --- */
         input {
-            width: 70%; 
+            width: 75%; 
             padding: 10px; 
-            margin: 10px 0;
+            margin: 10px 0 15px 0;
             border-radius: 8px; 
-            border: 2px solid #ddd; 
+            border: 2px solid rgba(255, 255, 255, 0.15); 
+            background: var(--bg-input);
+            color: var(--texto-input);
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            outline: none;
+            transition: all 0.3s ease;
         }
+        
+        input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
         button.accion { 
             width: 100%; 
-            padding: 10px; 
+            padding: 12px; 
             border: none; 
-            border-radius: 8px; 
+            border-radius: 10px; 
             color: white; 
             font-weight: bold; 
+            font-size: 1rem;
             cursor: pointer; 
             transition: 0.3s; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .btn-suma { background: #28a745; }
         .btn-resta { background: #dc3545; }
-        .btn-suma:hover { background: #218838; }
-        .btn-resta:hover { background: #c82333; }
+        
+        @media (hover: hover) {
+            .btn-suma:hover { background: #218838; transform: scale(1.02); }
+            .btn-resta:hover { background: #c82333; transform: scale(1.02); }
+        }
         
         /* --- BARRA DE PROGRESO --- */
-        .progreso-container { margin-bottom: 20px; }
+        .progreso-container { margin-bottom: 25px; }
         .barra-fondo { 
-            background: #eee; 
+            background: rgba(255, 255, 255, 0.15); 
             border-radius: 10px; 
             height: 12px; 
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
         }
         .barra-relleno { 
             background: #ffc107; 
@@ -125,19 +171,20 @@
             height: 100%; 
             border-radius: 10px; 
             transition: 0.5s ease-in-out; 
+            box-shadow: 0 0 8px #ffc107;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navegación y Utilidades -->
-    <a href="pruebas" class="btn-esquina btn-izquierdo">⬅ Pruebas</a>
-    <button class="btn-esquina btn-derecho" onclick="document.body.classList.toggle('dark-mode')">🌓</button>
+    <div id="particles-js"></div>
+
+    <a href="pruebas" class="btn-flotante left-btn">⬅ Pruebas</a>
+    <button id="theme-icon" class="btn-flotante right-btn" onclick="toggleDarkMode()">🌙</button>
 
     <div class="card">
-        <!-- Sistema de Puntos -->
         <div class="progreso-container">
-            <div style="margin-bottom: 8px; font-weight: bold;">
+            <div style="margin-bottom: 8px; font-weight: bold; font-size: 1.1rem;">
                 Puntos: <span id="puntos">0</span> / 100
             </div>
             <div class="barra-fondo">
@@ -145,21 +192,22 @@
             </div>
         </div>
 
-        <!-- Pregunta de Suma (Fácil) -->
         <div class="pregunta-box">
-            <h3 id="txt_suma">Generando...</h3>
+            <h3 id="txt_suma" style="margin-top:0;">Generando...</h3>
             <input type="number" id="in_suma" placeholder="?">
             <button class="accion btn-suma" onclick="validar('suma')">Verificar (+3 pts)</button>
         </div>
 
-        <!-- Pregunta de Resta (Difícil) -->
         <div class="pregunta-box">
-            <h3 id="txt_resta">Generando...</h3>
+            <h3 id="txt_resta" style="margin-top:0;">Generando...</h3>
             <input type="number" id="in_resta" placeholder="?">
             <button class="accion btn-resta" onclick="validar('resta')">Verificar (+7 pts)</button>
         </div>
     </div>
 
+    <script src="js/modo-oscuro.js"></script>
+    <script src="js/particles.min.js"></script>
+    
     <script>
         // Cargar puntos guardados o iniciar en 0
         let puntosTotales = parseInt(localStorage.getItem('puntosMatematicas')) || 0;
@@ -187,7 +235,6 @@
             if (valorUsuario === respuestas[tipo]) {
                 puntosTotales += ptsGanados;
                 
-                // Guardar progreso en el navegador
                 localStorage.setItem('puntosMatematicas', puntosTotales);
                 
                 input.value = "";
@@ -204,11 +251,9 @@
         function actualizarInterfaz() {
             document.getElementById('puntos').innerText = puntosTotales;
             
-            // Calcular porcentaje para la barra (Máximo 100%)
             let porcentaje = Math.min(puntosTotales, 100);
             document.getElementById('barra').style.width = porcentaje + "%";
 
-            // Verificar si ganó el desafío
             if (puntosTotales >= 100) {
                 setTimeout(() => {
                     alert("¡FELICIDADES! 🎉 Has alcanzado los 100 puntos.");
@@ -219,12 +264,40 @@
             }
         }
 
+        // Configuración y carga de la red de partículas
+        function cargarParticulas(colorParticula) {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 65, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": colorParticula },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.7, "random": false },
+                    "size": { "value": 4.5, "random": true },
+                    "line_linked": { 
+                        "enable": true, 
+                        "distance": 140, 
+                        "color": colorParticula, 
+                        "opacity": 0.4, 
+                        "width": 1.5 
+                    },
+                    "move": { "enable": true, "speed": 2.2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                }
+            });
+        }
+
         // Iniciar al cargar la página
         window.onload = () => {
             generarPreguntas();
             actualizarInterfaz();
+            cargarParticulas("#ffffff");
         };
+
+        // Escucha al tema para refrescar las partículas si se desea
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('theme-icon')?.addEventListener('click', () => {
+                setTimeout(() => cargarParticulas("#ffffff"), 50);
+            });
+        });
     </script>
 </body>
-    </html>
-        
+</html>
