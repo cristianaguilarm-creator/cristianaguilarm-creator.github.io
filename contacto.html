@@ -5,40 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto | Criss Creator</title>
     <style>
-        :root {
-            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --bg-tarjeta: rgba(255, 255, 255, 0.15);
+        /* 1. CAPA DE PARTÍCULAS (Fondo fijo) */
+        #particles-js {
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
         }
 
-        .dark-mode {
+        /* Forzamos a que la tarjeta quede por encima de las partículas */
+        .tarjeta-contacto { 
+            position: relative !important; 
+            z-index: 5 !important; 
+        }
+
+        /* 2. Definimos las variables para el modo claro */
+        :root {
+            --bg-gradiente: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-tarjeta: rgba(255, 255, 255, 0.08);
+            --borde-cristal: rgba(255, 255, 255, 0.25);
+            --texto: white;
+        }
+
+        /* 3. Variables alternativas para modo oscuro */
+        body.dark-mode {
             --bg-gradiente: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            --bg-tarjeta: rgba(0, 0, 0, 0.4);
+            --bg-tarjeta: rgba(15, 23, 42, 0.2);
+            --borde-cristal: rgba(255, 255, 255, 0.12);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-gradiente);
+            background: var(--bg-gradiente) !important;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            color: white;
-            transition: 0.5s;
+            color: var(--texto);
+            transition: background 0.5s ease-in-out;
         }
 
+        /* --- ESTILO DE LA TARJETA EN CRISTAL (Glassmorphism) --- */
         .tarjeta-contacto {
-            background-color: var(--bg-tarjeta);
+            background: var(--bg-tarjeta) !important;
             padding: 40px;
             border-radius: 25px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px) !important;
+            -webkit-backdrop-filter: blur(15px) !important;
+            border: 1px solid var(--borde-cristal) !important;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             max-width: 400px;
             width: 90%;
-            /* Animación de entrada */
             animation: aparecer 0.6s ease-out;
         }
 
@@ -66,14 +88,15 @@
         }
 
         .red-social:hover {
-            transform: scale(1.05) translateY(-2px);
+            transform: scale(1.03) translateY(-2px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            filter: brightness(1.2);
+            filter: brightness(1.15);
         }
 
         .discord { background-color: #5865F2; }
         .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .github { background-color: #24292e; }
+        .gmail { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); }
 
         .btn-volver {
             display: inline-block;
@@ -88,27 +111,47 @@
             transition: 0.3s;
         }
 
-        .btn-volver:hover { background: white; color: #764ba2; }
+        .btn-volver:hover { background: white; color: #764ba2; transform: scale(1.05); }
 
-        /* Botón de Modo Oscuro */
-        .btn-toggle {
+        /* --- BOTÓN FLOTANTE DE MODO OSCURO (Estilo Unificado) --- */
+        .btn-flotante {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
             cursor: pointer;
-            font-size: 20px;
-            transition: 0.3s;
+            z-index: 100;
+            font-weight: 500;
+            font-size: 0.95rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
         }
-        .btn-toggle:hover { background: white; transform: rotate(30deg); }
+
+        @media (hover: hover) {
+            .btn-flotante:hover { 
+                background: rgba(255, 255, 255, 0.25); 
+                border-color: rgba(255, 255, 255, 0.4);
+                transform: translateY(-2px);
+            }
+        }
+        .btn-flotante:active { transform: translateY(1px); background: rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
 
-    <button class="btn-toggle" onclick="toggleDarkMode()">🌓</button>
+    <div id="particles-js"></div>
+
+    <button id="theme-icon" class="btn-flotante" onclick="toggleDarkMode()">🌙</button>
 
     <div class="tarjeta-contacto">
         <h1>👋 Criss Creator</h1>
@@ -126,7 +169,7 @@
             💻 GitHub Profile
         </a>
 
-        <a href="mailto:cristian.aguilarm@colegiolosprincipes.cl" target="_blank" class="red-social">
+        <a href="mailto:cristian.aguilarm@colegiolosprincipes.cl" target="_blank" class="red-social gmail">
             📬 Mi gmail
         </a>
 
@@ -134,5 +177,40 @@
     </div>
 
     <script src="js/modo-oscuro.js"></script>
+    <script src="js/particles.min.js"></script>
+    <script>
+        // Configuración y carga de la red de partículas
+        function cargarParticulas(colorParticula) {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 65, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": colorParticula },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.7, "random": false },
+                    "size": { "value": 4.5, "random": true },
+                    "line_linked": { 
+                        "enable": true, 
+                        "distance": 140, 
+                        "color": colorParticula, 
+                        "opacity": 0.4, 
+                        "width": 1.5 
+                    },
+                    "move": { "enable": true, "speed": 2.2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                }
+            });
+        }
+
+        // Activación inmediata del fondo
+        window.onload = () => {
+            cargarParticulas("#ffffff");
+        };
+
+        // Sincronización del tema para regenerar partículas
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('theme-icon')?.addEventListener('click', () => {
+                setTimeout(() => cargarParticulas("#ffffff"), 50);
+            });
+        });
+    </script>
 </body>
 </html>
