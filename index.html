@@ -256,10 +256,17 @@
 
     <!-- Lógica de detección -->
     <script>
-      const origenReal = document.referrer.toLowerCase();
-
-      if (origenReal.includes("cristian2024-ops.github.io")) {
-        document.getElementById("btnVolver").style.display = "block";
+      // 1. Revisamos si ya guardamos previamente en la sesión que venía de mi otra web
+      if (sessionStorage.getItem("vieneDePortfolio") === "true") {
+          document.getElementById("btnVolver").style.display = "block";
+      } else {
+          // 2. Si no está guardado, revisamos el referrer real en ese momento
+          const origenReal = document.referrer.toLowerCase();
+          if (origenReal.includes("cristian2024-ops.github.io")) {
+              // Guardamos la marca en la sesión para que no se borre al navegar entre mis páginas
+              sessionStorage.setItem("vieneDePortfolio", "true");
+              document.getElementById("btnVolver").style.display = "block";
+          }
       }
     </script>
 </body>
